@@ -9,6 +9,9 @@ services:
     volumes:
     - ../..:/workspaces:cached
 
+    labels:
+      - dev.orbstack.domain=travel_script.local # For OrbStack users: sets a custom domain for the container.
+
     # Overrides default command so things don't shut down after the process ends.
     command: sleep infinity
 
