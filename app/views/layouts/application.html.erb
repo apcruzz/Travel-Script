@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Travel Script" %></title>
+    <title><%= content_for(:title)+ " | " unless content_for(:title).blank?%>Travel Script</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="mobile-web-app-capable" content="yes">
@@ -59,6 +59,26 @@
         </div>
       </div>
     </nav>
-    <%= yield %>
+    <main class="container-fluid">
+      <!-- Begin Flash Message Code  -->
+      <div id="flash-messages" class="w-75">
+        <% flash.each do |name , msg| %>
+          <div class="alert alert-<%= name == "notice" ? "success" : "danger" %> alert-dismissible fade show d-flex justify-content-between" role="alert">
+            <p><strong><%= msg %></strong></p>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+        <% end %>
+      </div>
+      <!-- End Flash Message Code  -->
+      <div>
+        <% if @show_title %>
+        <div id="title" class="row">
+          <div class="col">
+            <h1><%= yield(:title) %></h1>
+          </div>
+        </div>
+      <% end %>
+      <%= yield %>
+      </div>
   </body>
 </html>
