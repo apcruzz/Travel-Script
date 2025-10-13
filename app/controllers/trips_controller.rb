@@ -14,12 +14,13 @@ class TripsController < ApplicationController
       render :new, status: :unprocessable_entity
     end
   end
-  private
-  def trip_params
-    params.require(:trip).permit(:title, :destination, :start_date, :end_date, :description, media: [])
-  end
 
   def show
     @trip = Trip.find(params[:id])
+  end
+
+  private
+  def trip_params
+    params.require(:trip).permit(:title, :destination, :start_date, :end_date, :description, media: [])
   end
 end

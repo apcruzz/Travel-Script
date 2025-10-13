@@ -1,8 +1,8 @@
-<%# Loop through each trip and display its details %>
 
-<div id="<%dom_id(trip)%>" class="trip">
+<% raise "trip is nil!" if trip.nil? %>
+<div id="<%= dom_id(trip)%>" class="trip">
     <p><strong>Title:</strong> <%= trip.title %></p>
-    <p><strong>Destination:</strong> <%= link_to trip.destination, trip_path(trip) %></p>
+    <p><strong>Destination:</strong> <%= link_to_unless_current trip.destination, trip_path(trip) %></p>
     <p><strong>Start Date:</strong> <%= trip.start_date.strftime("%B %d, %Y") %></p>
     <p><strong>End Date:</strong> <%= trip.end_date.strftime("%B %d, %Y") %></p>
     <p><strong>Description:</strong> <%= trip.description %></p>
