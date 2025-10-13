@@ -1,0 +1,18 @@
+<% title "Trips" %>
+
+<%#Display a list of trips%>
+<h3>All Trips</h3>
+<%@trips.each do |trip| %>
+    <%= render partial: "task", locals: { trip: trip } %>
+    <%# render task%> <%# Works just fine too from Bro Slade same with the show.html%>
+<% end %>
+
+<%# Display a message if there are no trips %>
+<% if @trips.empty? %>
+  <p>No trips available at the moment. Please check back later!</p>
+<% end %>
+
+<%# Add a link to create a new trip %>
+<div class="new-trip">
+  <%= link_to "Create New Trip", new_trip_path, class: "btn btn-primary" %>
+</div>

@@ -1,0 +1,7 @@
+<% title "Trip"%>
+
+<% trip.each do |trip|%>
+<% render partial: "task", locals: { trip: trip } %>
+<% end %>
+
+<%= link_to "New Trip", new_trip_path, class: "btn btn-primary" %>
