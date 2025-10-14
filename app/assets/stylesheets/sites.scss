@@ -4,6 +4,70 @@ body {
   padding-top: 4.5rem;
 }
 
+/* =================================== Base Theme Variables ========================================== */
+:root {
+  --bg-color: #f9f9fb;
+  --text-color: #1e1e1e;
+  --nav-bg: rgba(173, 216, 230, 0.4); /* light blue transparent */
+  --webkit-backdrop-filter: blur(12px);   /* Safari support */
+  --nav-text-color: #003e5c;
+  --card-bg: #ffffff;
+  // --btn-color: white; /* Bootstrap green */
+}
+
+/* =================================== Dark Mode Variables ========================================== */
+body.dark-mode {
+  --bg-color: #121212;
+  --text-color: #f5f5f5;
+  --nav-bg: rgba(255, 255, 255, 0.15); /* transparent white navbar */
+  --nav-text-color: #ffffff; /* white text and icons */
+  --card-bg: #1e1e2a;
+  --btn-color: #0d6efd; /* Blue */
+}
+
+/* =================================== Apply Variables ========================================== */
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background 0.4s ease, color 0.4s ease;
+}
+
+/* Navbar colors */
+.custom-navbar {
+  background: var(--nav-bg);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.navbar-light .navbar-nav .nav-link{
+  color: var(--nav-text-color);
+}
+
+.navbar-light .navbar-nav .nav-link:hover {
+  color: var(--btn-color)!important;
+}
+
+.navbar-brand {
+  color: var(--nav-text-color) !important;
+}
+
+.card {
+  background-color: var(--card-bg);
+  transition: background 0.3s ease;
+}
+
+.btn-outline-success {
+  border-color: var(--btn-color);
+  color: var(--btn-color);
+}
+
+.btn-outline-success:hover {
+  background-color: var(--btn-color);
+  color: white;
+}
+
+/* =================================== Custom Styles ========================================== */
+
 .custom-navbar {
   background: rgba(173, 216, 230, 0.4); /* light blue with transparency */
   backdrop-filter: blur(12px);           /* blur effect */
@@ -13,12 +77,8 @@ body {
   transition: background 0.3s ease, box-shadow 0.3s ease;
 }
 
-.custom-navbar:hover {
-  background: rgba(173, 216, 230, 0.6); /* slightly darker when hovered */
-}
-
 .navbar-light .navbar-nav .nav-link {
-  color: #004c70; /* calm ocean blue for links */
+  color: var(--nav-text-color);
   font-weight: 500;
   transition: color 0.2s ease;
 }
@@ -48,6 +108,8 @@ body {
 .navbar-nav {
   gap: 20px; /* space between each nav item */
 }
+
+// ================================================ Logo Icon ==============================================
 
 .logo-icon {
   width: 45px;
