@@ -20,12 +20,26 @@
     <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
+
+    <%# Bootstrap Icons %>
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
+    />
+
   </head>
 
   <body>
-    <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <div class="container-fluid">
-        <%= link_to "Travel Script", "#", class: "navbar-brand" %>
+    <nav class="navbar navbar-expand-md navbar-light fixed-top custom-navbar">
+      <div class="container-fluid justify-content-center">
+        
+        <!-- Brand with Icon -->
+        <%= link_to root_path, class: "navbar-brand d-flex align-items-center me-4" do %>
+          <%= image_tag("logo/icons8-t-64.png", alt: "Globe Icon", class: "logo-icon") %>
+          Travel Script
+        <% end %>
+
+        <!-- Toggler for small screens -->
         <button
           class="navbar-toggler"
           type="button"
@@ -37,28 +51,50 @@
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarCollapse">
-          <ul class="navbar-nav me-auto mb-2 mb-md-0">
-            <%= nav_link("Home", root_path) %>
-            <%= nav_link("About", about_path) %>
-            <%= nav_link("Trips", trips_path) %>
-            <%= nav_link("Another Link", "/another") %>
 
+        <!-- Centered Nav Links -->
+        <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
+          <ul class="navbar-nav mb-2 mb-md-0 gap-4">
+           <li class="nav-item">
+            <%= link_to root_path, class: "nav-link d-flex align-items-center" do %>
+              <%= image_tag("icons/icons8-house-96.png", alt: "Home", class: "nav-icon") %>
+              <span class="ms-2">Home</span>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to about_path, class: "nav-link d-flex align-items-center" do %>
+              <%= image_tag("icons/BigM.png", alt: "About", class: "nav-icon") %>
+              <span class="ms-2">About</span>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to trips_path, class: "nav-link d-flex align-items-center" do %>
+              <%= image_tag("icons/icons8-adventure-96.png", alt: "Trips", class: "nav-icon") %>
+              <span class="ms-2">Trips</span>
+            <% end %>
+          </li>
+          <li class="nav-item">
+            <%= link_to "/another", class: "nav-link d-flex align-items-center" do %>
+              <%= image_tag("icons/icons8-home-94.png", alt: "Another Link", class: "nav-icon") %>
+              <span class="ms-2">Another Link</span>
+            <% end %>
+          </li>
           </ul>
-          <form class="d-flex" role="search">
-            <input
-              class="form-control me-2"
-              type="search"
-              placeholder="Search"
-              aria-label="Search"
-            />
-            <button class="btn btn-outline-success" type="submit">
-              Search
-            </button>
-          </form>
         </div>
+
+        <!-- Search Form (right side) -->
+        <form class="d-flex ms-3" role="search">
+          <input
+            class="form-control me-2"
+            type="search"
+            placeholder="Search"
+            aria-label="Search"
+          />
+          <button class="btn btn-outline-success" type="submit">Search</button>
+        </form>
       </div>
     </nav>
+
     <main class="container-fluid">
       <!-- Begin Flash Message Code  -->
       <div id="flash-messages" class="w-75">
