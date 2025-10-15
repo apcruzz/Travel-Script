@@ -55,30 +55,25 @@
         <!-- Centered Nav Links -->
         <div class="collapse navbar-collapse justify-content-center" id="navbarCollapse">
           <ul class="navbar-nav mb-2 mb-md-0 gap-4">
-           <li class="nav-item">
-            <%= link_to root_path, class: "nav-link d-flex align-items-center" do %>
-              <%= image_tag("icons/icons8-house-96.png", alt: "Home", class: "nav-icon") %>
+            <%= nav_link root_path do %>
+              <%= image_tag("icons/icons8-home-94.png", alt: "Home", class: "nav-icon") %>
               <span class="ms-2">Home</span>
             <% end %>
-          </li>
-          <li class="nav-item">
-            <%= link_to about_path, class: "nav-link d-flex align-items-center" do %>
+
+            <%= nav_link about_path do %>
               <%= image_tag("icons/BigM.png", alt: "About", class: "nav-icon") %>
               <span class="ms-2">About</span>
             <% end %>
-          </li>
-          <li class="nav-item">
-            <%= link_to trips_path, class: "nav-link d-flex align-items-center" do %>
+
+            <%= nav_link trips_path do %>
               <%= image_tag("icons/icons8-adventure-96.png", alt: "Trips", class: "nav-icon") %>
               <span class="ms-2">Trips</span>
             <% end %>
-          </li>
-          <li class="nav-item">
-            <%= link_to "/another", class: "nav-link d-flex align-items-center" do %>
-              <%= image_tag("icons/icons8-home-94.png", alt: "Another Link", class: "nav-icon") %>
-              <span class="ms-2">Another Link</span>
-            <% end %>
-          </li>
+
+            <%# <%= nav_link "/another" do %> 
+              <%# <%= image_tag("icons/icons8-home-94.png", alt: "Another Link", class: "nav-icon") %> 
+              <%# <span class="ms-2">Another Link</span> %>
+            <%# <% end %> 
           </ul>
         </div>
 
