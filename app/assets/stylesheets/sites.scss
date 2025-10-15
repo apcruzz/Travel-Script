@@ -124,4 +124,10 @@ body {
   transition: transform 0.3s ease;
 }
 
+// =============================================== Search Button ==============================================
+
+.dropdown-toggle::after {
+  display: none !important; /* hides the default arrow */
+}
+
 
