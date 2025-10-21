@@ -51,7 +51,7 @@ class TripsController < ApplicationController
 
   private
   def trip_params
-    params.require(:trip).permit(:title, :destination, :start_date, :end_date, :description, media: [])
+    params.require(:trip).expect(:title, :destination, :start_date, :end_date, :description, media: [])
   end
 
   def load_trip
