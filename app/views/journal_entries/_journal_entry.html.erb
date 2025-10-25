@@ -1,0 +1,12 @@
+<% raise "Journal Entry is nil:" if journal_entry.nil? %>
+<div class="journal-entry">
+  <h4><%= link_to_unless_current journal_entry.title, trip_journal_entry_path(@trip, journal_entry) %></h4>
+  <p><%= journal_entry.content %></p>
+  <% if journal_entry.media.attached? %>
+    <div class="journal-entry-image">
+      <%= image_tag journal_entry.media, alt: "Journal Entry Image" %>
+    </div>
+  <% end %>
+  <p class="journal-entry-date"><em><%= journal_entry.created_at.strftime("%B %d, %Y") %></em></p>
+  <hr>
+</div>

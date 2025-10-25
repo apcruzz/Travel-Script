@@ -6,18 +6,20 @@
   <%= render "journal_entry", journal_entry: entry %>
 <% end %>   
 
+
+
 <%# Display a message if there are no journal entries %>
 <% if @journal_entries.empty? %>
   <p>No journal entries available at the moment. Please check back later!</p>
 <% end %>   
+
 <%# Add a link to create a new journal entry %>
 <div class="new-journal-entry">
   <%= link_to "Create New Journal Entry", new_trip_journal_entry_path(@trip), class: "btn btn-primary" %>
-</div>      
-<%# Note: Assuming journal entries are nested under trips, hence using new_trip_journal_entry_path(@trip) %>    
-<% end %>
+</div>   
 
-            <%= nav_link journal_entries_path do %>
-              <%= image_tag("icons/icons8-journal-96.png", alt: "Journal Entries", class: "nav-icon") %>
-              <span class="ms-2">Journal Entries</span>
-            <% end %>
+<%# Add a link to go back to the trip %>
+<div class="back-to-trip">
+  <%= link_to "Back to Trip", trip_path(@trip), class: "btn btn-secondary" %>
+</div>
+

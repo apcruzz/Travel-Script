@@ -4,7 +4,7 @@
 <h3>All Trips</h3>
 <% @trips.each do |trip| %>
   <%= render "trip", trip: trip %>
-  <%= link_to "All Journal Entries", trip_journal_entries_path(trip) %>
+  <%# <%= link_to "All Journal Entries", trip_journal_entries_path(trip) %> 
 <% end %>
 
 <%# Display a message if there are no trips %>

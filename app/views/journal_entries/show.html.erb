@@ -1,0 +1,18 @@
+<% title "JOURNAL ENTRY" %>
+
+<%= render "form", journal_entry: @journal_entry, trip: @trip %>
+
+<div class="back-to-journal-entries">
+  <%= link_to "Back to Journal Entries", trip_journal_entries_path(@trip), class: "btn btn-secondary" %>
+</div>
+
+<%# Add a link to edit the journal entry %>
+<div class="edit-journal-entry">
+  <%= link_to "Edit Journal Entry", edit_trip_journal_entry_path(@trip, @journal_entry), class: "btn btn-secondary" %>
+</div>
+
+<%# Add a link to delete the journal entry %>
+<div class="delete-journal-entry">
+  <%= button_to "Delete Journal Entry", trip_journal_entry_path(@trip, @journal_entry), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
+</div>
+

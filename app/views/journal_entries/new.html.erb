@@ -1,0 +1,7 @@
+<% title "NEW JOURNAL ENTRY" %>
+
+<%= render "form", journal_entry: @journal_entry, trip: @trip %>
+
+<div class="back-to-journal-entries">
+  <%= link_to "Cancel", trip_journal_entries_path(@trip), class: "btn btn-secondary" %>
+</div>

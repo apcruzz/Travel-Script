@@ -1,3 +1,11 @@
 @use 'bootstrap/scss/bootstrap';
 @use 'bootstrap-icons/font/bootstrap-icons';
 @use 'sites';
+@use 'trips';
+@use 'journal_entries';
+
+body {
+  padding-top: 80px; /* Adjust based on your navbar height */
+  background-color: #f8fafc;
+  font-family: 'Poppins', sans-serif;
+}

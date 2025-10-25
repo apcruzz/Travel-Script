@@ -10,7 +10,9 @@ class JournalEntriesController < ApplicationController
   end
 
   def new
-    @journal_entry = @trip.journal_entries.new
+    @trip = Trip.find(params[:trip_id])
+    @journal_entry = JournalEntry.new
+    @journal_entries = @trip.journal_entries
   end
 
   def create
@@ -26,8 +28,15 @@ class JournalEntriesController < ApplicationController
   end
 
   def update
+    # Remove selected media if checkboxes were checked
+    if params[:remove_media_ids].present?
+      params[:remove_media_ids].each do |id|
+        @journal_entry.media.find(id).purge
+      end
+    end
+
     if @journal_entry.update(journal_entry_params)
-      redirect_to trip_journal_entries_path(@trip), notice: "Journal entry updated successfully."
+      redirect_to trip_journal_entry_path(@trip, @journal_entry), notice: "Journal entry updated!"
     else
       render :edit, status: :unprocessable_entity
     end

@@ -1,0 +1,29 @@
+<%= bootstrap_form_for [@trip, @journal_entry] do |f| %>
+  <%= f.text_field :title %>
+  <%= f.text_area :content %>
+  <%= f.date_field :date %>
+
+  <% if @journal_entry.media.attached? %>
+    <div class="mb-3">
+      <label class="form-label">Current Images:</label>
+      <div class="row g-3">
+        <% @journal_entry.media.each do |file| %>
+          <div class="col-md-4 d-flex flex-column align-items-center">
+            <%= image_tag file, class: "img-thumbnail mb-2", width: 200 %>
+            <div class="form-check">
+              <%= check_box_tag "remove_media_ids[]", file.id, false, class: "form-check-input", id: "remove_media_#{file.id}" %>
+              <%= label_tag "remove_media_#{file.id}", "Remove?", class: "form-check-label" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+
+  <div class="mb-3">
+    <%= f.label :media, "Add/Replace Image(s)", class: "form-label" %>
+    <%= f.file_field :media, multiple: true, class: "form-control" %>
+  </div>  
+
+  <%= f.submit @journal_entry.persisted? ? "Update Journal Entry" : "Create Journal Entry", class: "btn btn-primary" %>
+<% end %>
