@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
-  resources :trips
+  resources :trips do
+    resources :journal_entries
+  end
   # get "sites/index" why do we have to delete? this line?
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
