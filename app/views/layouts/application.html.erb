@@ -62,12 +62,13 @@
               <%= image_tag("icons/icons8-home-94.png", alt: "Home", class: "nav-icon") %>
               <span class="ms-2">Home</span>
             <% end %>
-
+          
             <%= nav_link about_path do %>
               <%= image_tag("icons/BigM.png", alt: "About", class: "nav-icon") %>
               <span class="ms-2">About</span>
             <% end %>
 
+            <%# <% if authenticated? %> 
             <%= nav_link trips_path do %>
               <%= image_tag("icons/icons8-adventure-96.png", alt: "Trips", class: "nav-icon") %>
               <span class="ms-2">Trips</span>
@@ -86,7 +87,7 @@
         </div>
         
         <!-- Search Form (right side) -->
-        <div class="dropdown">
+        <%# <div class="dropdown">
           <button class="btn btn-link dropdown-toggle" type="button" id="searchDropdown" data-bs-toggle="dropdown" aria-expanded="false">
             <i class="fa-solid fa-magnifying-glass"></i> <!-- Font Awesome search icon -->
           </button>
@@ -96,7 +97,20 @@
               <button class="btn btn-outline-success" type="submit">Search</button>
             </form>
           </ul>
-        </div>
+        </div> %>
+
+        <div class="navbar-nav ms-4">
+          <% if authenticated? %>
+            <li class = "nav-items">
+              <%= button_to "Logout", session_path, method: :delete, class: "btn btn-outline-danger" %>
+            </li>
+          <% else %>
+            <li class = "nav-items">
+              <%= nav_link "Sign Up", signup_path %>
+              <%= nav_link "Login", login_path %>
+            </li>
+          <% end %>
+
       </div>
     </nav>
 
