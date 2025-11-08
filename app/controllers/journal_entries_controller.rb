@@ -58,6 +58,6 @@ class JournalEntriesController < ApplicationController
   end
 
   def journal_entry_params
-    params.require(:journal_entry).permit(:title, :content, :date, :image_url)
+    params.require(:journal_entry).expect(:title, :content, :date, :image_url)
   end
 end

@@ -1,4 +1,6 @@
 class SitesController < ApplicationController
+  allow_unauthenticated_access only: %i[ index about]
+
   def index
   end
 
