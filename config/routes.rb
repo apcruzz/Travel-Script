@@ -1,13 +1,15 @@
 Rails.application.routes.draw do
-  # get "users/new"
   resource :session, only: [ :create, :destroy ]
-  resources :users, except: [ :new, :create ]
+  resources :users, except: [ :new ]
   resources :passwords, param: :token
   resources :trips do
     resources :journal_entries
   end
   # get "sites/index" why do we have to delete? this line?
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
+  # get "/Login", to: redirect("/login") # Redirect capitalized URL to lowercase error from nav_link
+  # get "/Sign Up", to: redirect("/signup")
 
   get "about" => "sites#about"
   get "login" => "sessions#new"

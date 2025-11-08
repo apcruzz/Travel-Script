@@ -102,12 +102,13 @@
         <div class="navbar-nav ms-4">
           <% if authenticated? %>
             <li class = "nav-items">
+              <%= nav_link user_path(Current.user), Current.user.name %>
               <%= button_to "Logout", session_path, method: :delete, class: "btn btn-outline-danger" %>
             </li>
           <% else %>
             <li class = "nav-items">
-              <%= nav_link "Sign Up", signup_path %>
-              <%= nav_link "Login", login_path %>
+              <%= nav_link signup_path, "Sign Up" %>
+              <%= nav_link login_path, "Login" %>
             </li>
           <% end %>
 

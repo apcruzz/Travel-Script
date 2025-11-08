@@ -1,2 +1,21 @@
-<h1>Users#new</h1>
-<p>Find me in app/views/users/new.html.erb</p>
+<% title "Sign Up" %>
+
+<div class="container mt-5" style="max-width: 500px;">
+  <div class="card shadow-sm border-0 rounded-4 p-4">
+    <h2 class="text-center mb-4">Create Your Account</h2>
+
+    <%= bootstrap_form_with model: @user do |f| %>
+      <%= f.text_field :name, required: true, autofocus: true, placeholder: "Full Name" %>
+      <%= f.email_field :email_address, required: true, placeholder: "Email Address" %>
+      <%= f.password_field :password, required: true, placeholder: "Password" %>
+      <%= f.password_field :password_confirmation, required: true, placeholder: "Confirm Password" %>
+      <div class="text-center">
+        <%= f.primary "Sign Up", class: "btn btn-primary w-100 mt-3" %>
+      </div>
+    <% end %>
+
+    <div class="text-center mt-3">
+      <p>Already have an account? <%= link_to "Log In", login_path, class: "text-primary" %></p>
+    </div>
+  </div>
+</div>

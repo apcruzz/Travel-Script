@@ -1,0 +1,16 @@
+<% title @user.name %>
+
+<div class="container mt-5">
+  <div class="card shadow-sm border-0 rounded-4 p-4 text-center">
+    <h2><%= @user.name %></h2>
+    <p class="text-muted"><%= @user.email_address %></p>
+    <hr>
+    <div class="d-flex justify-content-center gap-3 mt-3">
+      <%= link_to "Edit Profile", edit_user_path(@user), class: "btn btn-outline-primary" %>
+      <%= button_to "Delete Account", @user, method: :delete,
+            data: { turbo_confirm: "Are you sure you want to delete your account?" },
+            class: "btn btn-danger" %>
+      <%= link_to "Back to Users", users_path, class: "btn btn-secondary" %>
+    </div>
+  </div>
+</div>
