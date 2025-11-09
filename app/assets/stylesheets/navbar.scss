@@ -1,0 +1,24 @@
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 2px; /* spacing between items */
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-item {
+  list-style: none;
+}
+
+.nav-link {
+  color: var(--nav-text-color);
+  font-weight: 500;
+  text-decoration: none;
+  transition: color 0.2s ease, opacity 0.2s ease;
+}
+
+.nav-link:hover {
+  color: #002f4b;
+  opacity: 0.8;
+}

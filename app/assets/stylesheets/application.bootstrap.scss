@@ -3,6 +3,7 @@
 @use 'sites';
 @use 'trips';
 @use 'journal_entries';
+@use 'navbar';
 
 body {
   padding-top: 80px; /* Adjust based on your navbar height */
