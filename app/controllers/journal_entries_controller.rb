@@ -1,22 +1,23 @@
 class JournalEntriesController < ApplicationController
   before_action :set_trip
-  before_action :set_journal_entry, only: [ :show, :edit, :update, :destroy ]
+  before_action :set_journal_entry, only: %i[show edit update destroy]
+  before_action :require_login
+  before_action :set_trip
+  before_action :set_journal_entry, only: %i[show edit update destroy]
 
   def index
-    @journal_entries = @trip.journal_entries
+    @journal_entries = Current.user.journal_entries.where(trip: @trip).order(date: :desc)
   end
 
-  def show
-  end
+  def show; end
 
   def new
-    @trip = Trip.find(params[:trip_id])
-    @journal_entry = JournalEntry.new
-    @journal_entries = @trip.journal_entries
+    @journal_entry = @trip.journal_entries.new
   end
 
   def create
     @journal_entry = @trip.journal_entries.new(journal_entry_params)
+    @journal_entry.user = Current.user
     if @journal_entry.save
       redirect_to trip_journal_entries_path(@trip), notice: "Journal entry created successfully."
     else
@@ -24,11 +25,9 @@ class JournalEntriesController < ApplicationController
     end
   end
 
-  def edit
-  end
+  def edit; end
 
   def update
-    # Remove selected media if checkboxes were checked
     if params[:remove_media_ids].present?
       params[:remove_media_ids].each do |id|
         @journal_entry.media.find(id).purge
@@ -58,6 +57,7 @@ class JournalEntriesController < ApplicationController
   end
 
   def journal_entry_params
-    params.require(:journal_entry).expect(:title, :content, :date, :image_url)
+    params.require(:journal_entry).permit(:title, :content, :date, :image_url, media: [])
+    # .expect is not working for me here, but .permit workds fine.
   end
 end

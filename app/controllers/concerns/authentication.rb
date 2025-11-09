@@ -21,6 +21,11 @@ module Authentication
       resume_session || request_authentication
     end
 
+    def require_login
+      redirect_to login_path, alert: "You must log in to access this page." unless authenticated?
+    end
+
+
     def resume_session
       Current.session ||= find_session_by_cookie
     end

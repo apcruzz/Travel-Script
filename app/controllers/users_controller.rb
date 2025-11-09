@@ -5,7 +5,7 @@ class UsersController < ApplicationController
   end
 
   def index
-  @users = User.all
+  @users = [ Current.user ]
   end
 
 
@@ -20,11 +20,13 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @user = User.find(params[:id])
+    # @user = User.find(params[:id])
+    @user = Current.user
   end
 
   def update
-    @user = User.find(params[:id])
+    # @user = User.find(params[:id])
+    @user = Current.user
     if @user.update(user_params)
       redirect_to root_path, notice: "Your account has been updated."
     else
@@ -39,12 +41,14 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    # @user = User.find(params[:id])
+    @user = Current.user
   end
 
   private
 
   def user_params
-    params.expect(user: [ :name, :email_address, :password, :password_confirmation ])
+  params.require(:user).permit(:name, :email_address, :password, :password_confirmation)
+    # .expect retturns an error when I make new user. permit works fine.
   end
 end

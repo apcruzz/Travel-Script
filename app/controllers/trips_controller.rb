@@ -9,7 +9,7 @@ class TripsController < ApplicationController
   end
 
   def create
-    @trip = Trip.new(trip_params)
+    @trip = Current.user.trips.new(trip_params)
     if @trip.save
       redirect_to trips_path, notice: "Trip was successfully created."
     else
@@ -51,7 +51,8 @@ class TripsController < ApplicationController
 
   private
   def trip_params
-    params.require(:trip).expect(:title, :destination, :start_date, :end_date, :description, media: [])
+    params.require(:trip).permit(:title, :destination, :start_date, :end_date, :description, media: [])
+    # Used permit cause expect throws an error, it doesnt make a new trip when the form is submitted.
   end
 
   def load_trip

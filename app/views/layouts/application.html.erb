@@ -68,11 +68,11 @@
               <span class="ms-2">About</span>
             <% end %>
 
-            <%# <% if authenticated? %> 
+           <% if authenticated? %> 
             <%= nav_link trips_path do %>
               <%= image_tag("icons/icons8-adventure-96.png", alt: "Trips", class: "nav-icon") %>
               <span class="ms-2">Trips</span>
-            <% end %>
+            <% end %> <% end %>
 
             <%# <%= nav_link "/another" do %> 
               <%# <%= image_tag("icons/icons8-home-94.png", alt: "Another Link", class: "nav-icon") %> 
@@ -99,18 +99,17 @@
           </ul>
         </div> %>
 
-        <div class="navbar-nav ms-4">
-          <% if authenticated? %>
-            <li class = "nav-items">
-              <%= nav_link user_path(Current.user), Current.user.name %>
-              <%= button_to "Logout", session_path, method: :delete, class: "btn btn-outline-danger" %>
-            </li>
-          <% else %>
-            <li class = "nav-items">
-              <%= nav_link signup_path, "Sign Up" %>
-              <%= nav_link login_path, "Login" %>
-            </li>
-          <% end %>
+        <% if authenticated? && Current.user.present? %>
+          <li class="nav-items">
+            <%= nav_link user_path(Current.user), Current.user.name %>
+            <%= button_to "Logout", session_path, method: :delete, class: "btn btn-outline-danger" %>
+          </li>
+        <% else %>
+          <li class="nav-items">
+            <%= nav_link login_path, "Login" %>
+            <%= nav_link signup_path, "Sign Up" %>
+          </li>
+        <% end %>
 
       </div>
     </nav>
