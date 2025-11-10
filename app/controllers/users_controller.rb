@@ -1,13 +1,13 @@
 class UsersController < ApplicationController
-  allow_unauthenticated_access only: %i[ new create]
+  allow_unauthenticated_access only: %i[new create]
+
   def new
     @user = User.new
   end
 
   def index
-  @users = [ Current.user ]
+    @users = [ Current.user ]
   end
-
 
   def create
     @user = User.new(user_params)
@@ -20,35 +20,39 @@ class UsersController < ApplicationController
   end
 
   def edit
-    # @user = User.find(params[:id])
     @user = Current.user
   end
 
   def update
-    # @user = User.find(params[:id])
     @user = Current.user
-    if @user.update(user_params)
-      redirect_to root_path, notice: "Your account has been updated."
+
+    # Require password verification before updating
+    if @user.authenticate(params[:user][:password_challenge])
+      if @user.update(user_params)
+        redirect_to root_path, notice: "Your account has been updated."
+      else
+        render :edit, status: :unprocessable_entity
+      end
     else
+      flash.now[:alert] = "Old password is incorrect."
       render :edit, status: :unprocessable_entity
     end
   end
 
   def destroy
-    @user = User.find(params[:id])
+    @user = Current.user
     @user.destroy
     redirect_to root_path, alert: "Your account has been deleted."
   end
 
   def show
-    # @user = User.find(params[:id])
     @user = Current.user
   end
 
   private
 
   def user_params
-  params.require(:user).permit(:name, :email_address, :password, :password_confirmation)
-    # .expect retturns an error when I make new user. permit works fine.
+    # Include password_challenge so form data passes through, even if blank
+    params.require(:user).permit(:name, :email_address, :password, :password_confirmation, :password_challenge)
   end
 end

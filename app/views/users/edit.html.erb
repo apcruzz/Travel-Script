@@ -7,8 +7,12 @@
     <%= bootstrap_form_with model: @user, local: true do |f| %>
       <%= f.text_field :name, required: true, placeholder: "Full Name" %>
       <%= f.email_field :email_address, required: true, placeholder: "Email Address" %>
+
+      <%= f.password_field :password_challenge, required: true, placeholder: "Current Password (required to update)" %>
+
       <%= f.password_field :password, placeholder: "New Password (optional)" %>
       <%= f.password_field :password_confirmation, placeholder: "Confirm New Password" %>
+
       <div class="text-center">
         <%= f.primary "Update Profile", class: "btn btn-success w-100 mt-3" %>
       </div>
