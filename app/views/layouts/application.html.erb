@@ -33,6 +33,7 @@
   </head>
 
   <body>
+    <% unless controller_name == "sites" && action_name == "index" && !authenticated? %>
     <nav class="navbar navbar-expand-md navbar-light fixed-top custom-navbar">
       <div class="container-fluid justify-content-center">
         
@@ -123,6 +124,7 @@
 
       </div>
     </nav>
+  <%end%>
 
     <main class="container-fluid">
       <!-- Begin Flash Message Code  -->
@@ -148,7 +150,7 @@
     </main>
 
     <%# Dark Mode Toggle Script %>
-    <script>
+    <%# <script>
       document.addEventListener("DOMContentLoaded", () => {
         const toggle = document.getElementById("switchCheckChecked");
 
@@ -164,7 +166,6 @@
           localStorage.setItem("darkMode", document.body.classList.contains("dark-mode"));
         });
       });
-    </script>
-
+    </script> %>
   </body>
 </html>

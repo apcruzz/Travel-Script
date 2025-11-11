@@ -1,0 +1,52 @@
+// body {
+//   background: linear-gradient(135deg, #dff4ff, #f8ffff);
+//   min-height: 100vh;
+//   font-family: "Inter", sans-serif;
+// }
+
+// .card {
+//   background: white;
+//   border-radius: 12px;
+//   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+// }
+
+// .btn-primary {
+//   background-color: #003e5c;
+//   border: none;
+// }
+
+// .btn-success {
+//   background-color: #007f73;
+//   border: none;
+// }
+
+// .btn:hover {
+//   opacity: 0.9;
+// }
+
+
+
+.login-card {
+  width: 100%;
+  max-width: 600px; /* wider card */
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.12);
+  }
+}
+
+::placeholder {
+  color: #9ca3af; /* light gray */
+  opacity: 1; /* ensures consistent across browsers */
+}
+
+.form-control {
+  font-size: 1rem;
+  padding: 0.75rem;
+  border-radius: 8px;
+}

@@ -4,6 +4,7 @@
 @use 'trips';
 @use 'journal_entries';
 @use 'navbar';
+@use 'landing';
 
 body {
   padding-top: 80px; /* Adjust based on your navbar height */

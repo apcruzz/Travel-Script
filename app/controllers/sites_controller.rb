@@ -2,6 +2,9 @@ class SitesController < ApplicationController
   allow_unauthenticated_access only: %i[ index about]
 
   def index
+    if authenticated?
+      redirect_to trips_path
+    end
   end
 
   def about

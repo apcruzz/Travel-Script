@@ -54,5 +54,6 @@ class UsersController < ApplicationController
   def user_params
     # Include password_challenge so form data passes through, even if blank
     params.require(:user).permit(:name, :email_address, :password, :password_confirmation, :password_challenge)
+    # tried using expect but was not working, permit does.
   end
 end
