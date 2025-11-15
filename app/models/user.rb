@@ -6,4 +6,11 @@ class User < ApplicationRecord
 
   normalizes :email_address, with: ->(e) { e.strip.downcase }
   validates :name, presence: true, length: { maximum: 100 }
+  validates :email_address, presence: true
+
+  def self.new_form_hash(user_hash)
+    user = User.new user_hash
+    user.password_digest = 0
+    user
+  end
 end

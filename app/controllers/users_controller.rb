@@ -2,7 +2,12 @@ class UsersController < ApplicationController
   allow_unauthenticated_access only: %i[new create]
 
   def new
-    @user = User.new
+    if session[:user_hash]
+      @user =User.new_form_hash session[:user_hash]
+      @user.valid?
+    else
+      @user = User.new
+    end
   end
 
   def index
@@ -26,8 +31,8 @@ class UsersController < ApplicationController
   def update
     @user = Current.user
 
-    # require a password verification before updating
-    # if @user.authenticate(params[:user][:password_challenge])
+      # require a password verification before updating
+      # if @user.authenticate(params[:user][:password_challenge])
       if @user.update(user_update_params)
         redirect_to root_path, notice: "Your account has been updated."
       else
@@ -48,11 +53,11 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    params.expect(user: [:name, :email_address, :password, :password_confirmation])
+    params.expect(user: [ :name, :email_address, :password, :password_confirmation ])
     # tried using expect but was not working, permit does.
   end
   def user_update_params
-    params.expect(user: [:name, :email_address, :password, :password_confirmation, :password_challenge]).with_defaults(password_challenge: "")
+    params.expect(user: [ :name, :email_address, :password, :password_confirmation, :password_challenge ]).with_defaults(password_challenge: "")
     # tried using expect but was not working, permit does.
   end
 end
