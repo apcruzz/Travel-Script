@@ -14,6 +14,8 @@ class SessionsController < ApplicationController
       flash.now[:alert] = "Invalid email or password"
       render :new, status: :unprocessable_entity
     end
+  rescue BCrypt::Errors::InvalidHash
+    redirect_to login_path, alert: "Invalid password, did you signup with Github?"
   end
 
   def destroy
