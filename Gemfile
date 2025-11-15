@@ -24,6 +24,10 @@ gem "bcrypt", "~> 3.1.7"
 
 gem "bootstrap_form", "~> 5.4"
 
+# For federated login
+gem "omniauth-github"
+gem "omniauth-rails_csrf_protection"
+
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 

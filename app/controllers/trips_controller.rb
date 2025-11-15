@@ -1,11 +1,16 @@
 class TripsController < ApplicationController
-  before_action :load_trip, except: [ :index, :new, :create ]
+  before_action :require_login, except: [:index, :show]
+  before_action :load_trip, except: [:index, :new, :create]
 
   def index
     @trips = Trip.all
   end
+
+  def show
+  end
+
   def new
-    @trip = Trip.new
+    @trip = Current.user.trips.new
   end
 
   def create
@@ -17,14 +22,13 @@ class TripsController < ApplicationController
     end
   end
 
-  def show
-  end
-
   def edit
+    return redirect_to @trip, alert: "You cannot edit this trip." unless @trip.user == Current.user
   end
 
   def update
-    # Remove selected images
+    return redirect_to @trip, alert: "You cannot edit this trip." unless @trip.user == Current.user
+
     if params[:remove_media_ids]
       params[:remove_media_ids].each do |id|
         media = @trip.media.find_by_id(id)
@@ -32,7 +36,6 @@ class TripsController < ApplicationController
       end
     end
 
-    # Attach new images if present
     if params[:trip][:media].present?
       @trip.media.attach(params[:trip][:media])
     end
@@ -45,14 +48,16 @@ class TripsController < ApplicationController
   end
 
   def destroy
+    return redirect_to @trip, alert: "You cannot delete this trip." unless @trip.user == Current.user
+
     @trip.destroy
     redirect_to trips_path, alert: "Trip was successfully deleted."
   end
 
   private
+
   def trip_params
-    params.require(:trip).permit(:title, :destination, :start_date, :end_date, :description, media: [])
-    # Used permit cause expect throws an error, it doesnt make a new trip when the form is submitted.
+    params.expect(trip: [:title, :destination, :start_date, :end_date, :description, media: []])
   end
 
   def load_trip

@@ -26,17 +26,13 @@ class UsersController < ApplicationController
   def update
     @user = Current.user
 
-    # Require password verification before updating
-    if @user.authenticate(params[:user][:password_challenge])
-      if @user.update(user_params)
+    # require a password verification before updating
+    # if @user.authenticate(params[:user][:password_challenge])
+      if @user.update(user_update_params)
         redirect_to root_path, notice: "Your account has been updated."
       else
         render :edit, status: :unprocessable_entity
       end
-    else
-      flash.now[:alert] = "Old password is incorrect."
-      render :edit, status: :unprocessable_entity
-    end
   end
 
   def destroy
@@ -52,8 +48,11 @@ class UsersController < ApplicationController
   private
 
   def user_params
-    # Include password_challenge so form data passes through, even if blank
-    params.require(:user).permit(:name, :email_address, :password, :password_confirmation, :password_challenge)
+    params.expect(user: [:name, :email_address, :password, :password_confirmation])
+    # tried using expect but was not working, permit does.
+  end
+  def user_update_params
+    params.expect(user: [:name, :email_address, :password, :password_confirmation, :password_challenge]).with_defaults(password_challenge: "")
     # tried using expect but was not working, permit does.
   end
 end

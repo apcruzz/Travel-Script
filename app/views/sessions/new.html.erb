@@ -8,5 +8,6 @@
   <%= form.primary "Log in" %>
 <% end %>
 <br>
-
+<%= link_to "Login with Github", "auth/github", class: "btn btn-primary", data: {turbo: false }%>
+<br>
 <%= link_to "Forgot password?", new_password_path %>

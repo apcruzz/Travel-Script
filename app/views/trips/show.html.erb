@@ -1,13 +1,33 @@
-<% title "Trip"%>
+<%# <% title "Trip"%> 
 
-<%= render "trip", trip: @trip %>
+<%# <%= render "trip", trip: @trip %>
 
-<%= link_to "View Journal Entries", trip_journal_entries_path(@trip), class: "btn btn-primary" %>
+<%# <%= link_to "View Journal Entries", trip_journal_entries_path(@trip), class: "btn btn-primary" %>
 
-<br>
+<%# <br>
 
 <%= link_to "Back", trips_path, class: "btn btn-primary" %>
 
-<%= link_to "Edit", edit_trip_path(@trip), class: "btn btn-secondary" %>
+<%# <%= link_to "Edit", edit_trip_path(@trip), class: "btn btn-secondary" %>
 
-<%= button_to "Delete", trip_path(@trip), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
+<%# <%= button_to "Delete", trip_path(@trip), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" %>
+
+<%# ABOVE IS HOW TO SHOW BUTTONS FOR USERS WHO DOESNT OWN THR TRIP BELOW IS IF NOT %>
+
+<h2><%= @trip.title %></h2>
+<p><strong>Destination:</strong> <%= @trip.destination %></p>
+
+<hr>
+
+<h3>Journal Entries</h3>
+<%= link_to "View Entries", trip_journal_entries_path(@trip), class: "btn btn-secondary" %>
+
+<% if @trip.user == Current.user %>
+  <div class="mt-4">
+    <%= link_to "Edit Trip", edit_trip_path(@trip), class: "btn btn-primary" %>
+    <%= link_to "Delete Trip", trip_path(@trip), method: :delete,
+        data: { turbo_confirm: "Are you sure?" },
+        class: "btn btn-danger" %>
+  </div>
+<% end %>
+
