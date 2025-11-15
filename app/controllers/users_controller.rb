@@ -35,17 +35,46 @@ class UsersController < ApplicationController
     @user = Current.user
   end
 
+  # def update
+  #   @user = Current.user
+
+  #     # require a password verification before updating
+  #     # if @user.authenticate(params[:user][:password_challenge])
+  #     if @user.update(user_update_params)
+  #       redirect_to root_path, notice: "Your account has been updated."
+  #     else
+  #       render :edit, status: :unprocessable_entity
+  #     end
+  # end
+
+
+  # IF USER USES GIT THEN SKIP THE PASSWORD CHALLENGE , IS THIS THE RIGHT WAY TO DO THIS?
   def update
     @user = Current.user
 
-      # require a password verification before updating
-      # if @user.authenticate(params[:user][:password_challenge])
-      if @user.update(user_update_params)
+    # If the user logged in with GitHub, skip password authentication
+    if @user.provider == "github"
+      if @user.update(user_update_params.except(:password_challenge))
         redirect_to root_path, notice: "Your account has been updated."
       else
         render :edit, status: :unprocessable_entity
       end
+      return
+    end
+
+    # Regular password users must verify password_challenge
+    if @user.authenticate(params[:user][:password_challenge])
+      if @user.update(user_update_params.except(:password_challenge))
+        redirect_to root_path, notice: "Your account has been updated."
+      else
+        render :edit, status: :unprocessable_entity
+      end
+    else
+      flash.now[:alert] = "Incorrect password"
+      render :edit, status: :unprocessable_entity
+    end
   end
+
 
   def destroy
     @user = Current.user
