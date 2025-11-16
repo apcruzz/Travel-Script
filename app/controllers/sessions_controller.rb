@@ -11,15 +11,15 @@ class SessionsController < ApplicationController
       start_new_session_for user
       redirect_to after_authentication_url, notice: "Welcome back, #{user.name}!"
     else
-      flash.now[:alert] = "Invalid email or password"
-      render :new, status: :unprocessable_entity
+      flash.now[:alert] = "Invalid email or password, from sessions"
+      render "sites/index", status: :unprocessable_entity
     end
   rescue BCrypt::Errors::InvalidHash
-    redirect_to login_path, alert: "Invalid password, did you signup with Github?"
+    redirect_to root_path, alert: "Invalid password, did you signup with Github?"
   end
 
   def destroy
     terminate_session
-    redirect_to login_path, notice: "Logged out successfully."
+    redirect_to root_path, notice: "Logged out successfully."
   end
 end

@@ -6,6 +6,16 @@ class ApplicationController < ActionController::Base
 
   before_action :set_current_user
 
+  helper_method :hide_navbar?
+
+    def hide_navbar?
+    # Hide navbar on the landing page + login page + login error
+    (
+      (controller_name == "sites" && action_name == "index") ||
+      (controller_name == "sessions" && action_name.in?([ "new", "create" ]))
+    ) && !authenticated?
+  end
+
   private
 
   def set_current_user

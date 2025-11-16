@@ -1,13 +1,56 @@
 <%# <%= tag.div(flash[:alert], style: "color:red") if flash[:alert] %>
 <%# <%= tag.div(flash[:notice], style: "color:green") if flash[:notice] %> 
 <%# <% title "Login"%> 
+ 
+<%# <%= bootstrap_form_with url: session_path do |form| %>
+<%#   <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address] %><br>
+<%#   <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72 %><br>
+<%#   <%= form.primary "Log in" %>
+<%# <% end %>
+<%# <br>
+<%# <%= link_to "Login with Github", "auth/github", class: "btn btn-primary", data: {turbo: false }%>
+<%# <br>
+<%# <%= link_to "Forgot password?", new_password_path %>
+ <%# up top is the original %>
 
-<%= bootstrap_form_with url: session_path do |form| %>
-  <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: "Enter your email address", value: params[:email_address] %><br>
-  <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: "Enter your password", maxlength: 72 %><br>
-  <%= form.primary "Log in" %>
-<% end %>
-<br>
-<%= link_to "Login with Github", "auth/github", class: "btn btn-primary", data: {turbo: false }%>
-<br>
-<%= link_to "Forgot password?", new_password_path %>
+<%# <% title("Travel Script") %> 
+<%# <p>Welcome to Travel Script, your go-to platform for sharing and discovering travel experiences. Explore our curated list of travel sites below!</p> %>
+
+<div class="container text-center mt-5">
+  <div class="row justify-content-center align-items-center">
+    <!-- Left section: App branding -->
+    <div class="col-md-6 text-start">
+      <h1 class="display-4 fw-bold" style="color:#003e5c;">TravelScript</h1>
+      <p class="lead text-muted">Connect, explore, and record your travel adventures (THIS IS FROM SESSIONS NEW).</p>
+    </div>
+
+    <!-- Right section: Login form -->
+  <div class="col-md-6 col-lg-5 d-flex justify-content-center">
+    <div class="card login-card shadow-sm border-0 rounded-4 p-4">
+      <%# <div class= "login-card"> %>
+      <h3 class="mb-3 text-center">Log In</h3>
+      
+
+      <%= form_with url: session_path, local: true do |f| %>
+        <div class="mb-3">
+          <%= f.email_field :email_address, placeholder: "Email address", class: "form-control", required: true %>
+        </div>
+
+        <div class="mb-3">
+          <%= f.password_field :password, placeholder: "Password", class: "form-control", required: true %>
+        </div>
+
+        <%= f.submit "Log In", class: "btn btn-primary w-100" %>
+      <% end %>
+
+      <%= link_to "Login with Github", "auth/github", class: "btn btn-primary", data: {turbo: false }%> 
+      
+
+
+      <hr>
+      <p class="text-center">Don’t have an account?</p>
+      <%= link_to "Sign Up", signup_path, class: "btn btn-success w-100" %>
+    </div>
+  </div>
+</div>
+
