@@ -62,3 +62,16 @@
   text-align: center;
   margin-top: 20px;
 }
+
+.back-to-trip,
+.delete-entry-btn {
+  max-width: 700px;     /* width */
+  margin: 0 auto;       /* Center horizontally */
+  text-align: center;
+}
+
+.back-btn,
+.delete-entry-btn .btn {
+  width: 100%;          /* Button fills the fixed container, NOT full page */
+}
+

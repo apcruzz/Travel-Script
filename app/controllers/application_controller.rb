@@ -14,7 +14,7 @@ class ApplicationController < ActionController::Base
       (controller_name == "sites" && action_name == "index") ||
       (controller_name == "sessions" && action_name.in?([ "new", "create" ]))
     ) && !authenticated?
-  end
+    end
 
   private
 

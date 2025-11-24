@@ -6,8 +6,51 @@
 @use 'navbar';
 @use 'landing';
 
+/* Remove old navbar spacing */
 body {
-  padding-top: 80px; /* Adjust based on your navbar height */
   background-color: #f8fafc;
   font-family: 'Poppins', sans-serif;
+  margin: 0;
+}
+
+/* === THREE-COLUMN GRID LAYOUT === */
+.layout-three-column {
+  display: grid;
+  grid-template-columns: 260px 3fr 1fr;  /* Left | Wide Middle | Right */
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* === FEED (middle column) === */
+.main-feed {
+  padding: 30px;
+  background: #fafafa;
+  min-height: 100vh;
+  width: 100%;
+}
+
+/* Flash messages centered on top */
+.flash-container {
+  max-width: 650px;
+  margin: 10px auto 20px auto;
+}
+
+/* === RIGHT PANEL === */
+.right-panel {
+  padding: 20px;
+  background: #ffffff;
+  border-left: 1px solid #eee;
+  min-height: 100vh;
+}
+
+/* Keep card widths clean */
+.main-feed .card {
+  max-width: 600px;
+  margin: 0 auto 20px auto;
+}
+
+.layout-default {
+  display: block;
+  width: 100%;
+  min-height: 100vh;
 }

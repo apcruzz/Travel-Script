@@ -1,24 +1,167 @@
-.navbar-nav {
+// .navbar-nav {
+//   display: flex;
+//   align-items: center;
+//   gap: 2px; /* spacing between items */
+//   list-style: none;
+//   margin: 0;
+//   padding: 0;
+// }
+
+// .nav-item {
+//   list-style: none;
+// }
+
+// .nav-link {
+//   color: var(--nav-text-color);
+//   font-weight: 500;
+//   text-decoration: none;
+//   transition: color 0.2s ease, opacity 0.2s ease;
+// }
+
+// .nav-link:hover {
+//   color: #002f4b;
+//   opacity: 0.8;
+// }
+
+/* =========================================================
+   LAYOUT: Sidebar Left + Main Content
+   ========================================================= */
+.layout-sidebar {
+  display: flex;
+  min-height: 100vh;
+}
+
+/* =========================================================
+   SIDEBAR
+   ========================================================= */
+.sidebar {
+  width: 260px;
+  background: rgba(173, 216, 230, 0.25);
+  backdrop-filter: blur(12px);
+  padding: 20px;
+  border-right: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  flex-direction: column;
+}
+
+/* Logo + Brand */
+.sidebar-brand {
   display: flex;
   align-items: center;
-  gap: 2px; /* spacing between items */
+  font-size: 24px;
+  font-weight: 600;
+  color: #003e5c;
+  text-decoration: none;
+  margin-bottom: 25px;
+  margin-top: 25px;
+}
+
+.sidebar-logo {
+  width: 40px;
+  margin-right: 8px;
+}
+
+/* =========================================================
+   SIDEBAR NAV LINKS (Home, About, Trips)
+   ========================================================= */
+.sidebar-links {
   list-style: none;
-  margin: 0;
   padding: 0;
+  margin: 0;
 }
 
-.nav-item {
-  list-style: none;
-}
-
-.nav-link {
-  color: var(--nav-text-color);
+.sidebar-links .nav-link,
+.sidebar-links a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  color: #003e5c;
   font-weight: 500;
   text-decoration: none;
-  transition: color 0.2s ease, opacity 0.2s ease;
+  border-radius: 8px;
+  transition: background 0.2s ease;
 }
 
-.nav-link:hover {
+.sidebar-links a:hover {
+  background: rgba(0,0,0,0.07);
+}
+
+/* =========================================================
+   MAIN CONTENT
+   ========================================================= */
+.main-content {
+  flex: 1;
+  padding: 30px;
+  background: var(--bg-color);
+}
+
+/* =========================================================
+   SIDEBAR FOOTER (User Area)
+   ========================================================= */
+.sidebar-footer {
+  margin-top: auto;
+}
+
+/* username + login + signup block list */
+.sidebar-footer-nav {
+  list-style: none;     /* remove bullets */
+  padding-left: 0;      /* align left */
+  margin: 0;
+}
+
+/* footer nav items */
+.sidebar-footer-nav .nav-item {
+  margin: 0.5rem 0;
+}
+
+/* footer nav links */
+.sidebar-footer-nav .nav-link {
+  display: block;
+  padding: 8px 10px;
+  color: #003e5c;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.sidebar-footer-nav .nav-link:hover {
   color: #002f4b;
-  opacity: 0.8;
+}
+
+/* Logout styling */
+.sidebar-logout {
+  display: block;
+  padding: 8px 10px;
+  margin-top: 5px;
+  color: #d9534f;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.sidebar-logout:hover {
+  text-decoration: underline;
+}
+
+.logo-icon {
+  width: 45px;
+  height: 45px;
+  object-fit: contain;
+  margin-right: 8px;
+  margin-left: 4px;
+}
+
+.logo-icon:hover {
+  transform: rotate(15deg);
+  transition: transform 0.3s ease;
+}
+
+.nav-icon {
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
+  margin-right: 6px;
+  transition: transform 0.2s ease;
+}
+.nav-link:hover .nav-icon {
+  transform: scale(1.1);
 }

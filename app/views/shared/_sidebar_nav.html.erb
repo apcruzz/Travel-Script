@@ -1,0 +1,49 @@
+<nav class="sidebar-nav">
+
+  <%= link_to root_path, class: "sidebar-brand" do %>
+    <%= image_tag("logo/icons8-t-64.png", class: "logo-icon") %>
+    <span>TravelScript</span>
+  <% end %>
+
+  <ul class="sidebar-links">
+
+    <%= nav_link root_path do %>
+      <%= image_tag("icons/icons8-home-94.png", class: "nav-icon") %>
+      <span>Home</span>
+    <% end %>
+
+    <%= nav_link about_path do %>
+      <%= image_tag("icons/BigM.png", class: "nav-icon") %>
+      <span>About</span>
+    <% end %>
+
+    <% if authenticated? %>
+      <%= nav_link trips_path do %>
+        <%= image_tag("icons/icons8-adventure-96.png", class: "nav-icon") %>
+        <span>Trips</span>
+      <% end %>
+    <% end %>
+
+  </ul>
+
+  <div class="sidebar-footer mt-auto">
+    <% if authenticated? && Current.user.present? %>
+        <ul class="sidebar-footer-nav">
+        <%= nav_link user_path(Current.user), Current.user.name %>
+        </ul>
+
+        <%= link_to "Logout", session_path,
+            data: { turbo_method: :delete },
+            class: "sidebar-logout" %>
+    <% else %>
+        <ul class="sidebar-footer-nav">
+        <%= nav_link login_path,  "Login"  %>
+        <%= nav_link signup_path, "Sign Up" %>
+        </ul>
+    <% end %>
+    </div>
+
+
+
+
+</nav>

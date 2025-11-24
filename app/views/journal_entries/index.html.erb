@@ -1,25 +1,38 @@
 <% title "JOURNAL ENTRIES"%>
 
-<%# Display a list of journal entries %>
-<h3>All Journal Entries</h3>
-<% @journal_entries.each do |entry| %>
-  <%= render "journal_entry", journal_entry: entry %>
-<% end %>   
+<% content_for :feed do %>
+  <%# Display a list of journal entries %>
+  <h3>All <%= @trip.title %> Journal Entries</h3>
+  <% @journal_entries.each do |entry| %>
+    <%= render "journal_entry", journal_entry: entry %>
+  <% end %>   
 
 
+  <%# Display a message if there are no journal entries %>
+  <% if @journal_entries.empty? %>
+    <p>No journal entries available at the moment. Please check back later!</p>
+  <% end %>   
 
-<%# Display a message if there are no journal entries %>
-<% if @journal_entries.empty? %>
-  <p>No journal entries available at the moment. Please check back later!</p>
-<% end %>   
+  <%# Add a link to create a new journal entry %>
+  <div class="new-journal-entry">
+    <%= link_to "Create New Journal Entry", new_trip_journal_entry_path(@trip), class: "btn btn-primary" %>
+  </div>   
 
-<%# Add a link to create a new journal entry %>
-<div class="new-journal-entry">
-  <%= link_to "Create New Journal Entry", new_trip_journal_entry_path(@trip), class: "btn btn-primary" %>
-</div>   
+  <%# Add a link to go back to the trip %>
+  <div class="back-to-trip">
+      <%# <%= link_to "Back to #{@trip.title}", trip_path(@trip), class: "btn btn-secondary" %> 
+      <%= link_to "Back to All Trips", trips_path, class: "btn btn-secondary" %>
+  </div>
 
-<%# Add a link to go back to the trip %>
-<div class="back-to-trip">
-  <%= link_to "Back to Trip", trip_path(@trip), class: "btn btn-secondary" %>
-</div>
+<% end %>
 
+<% content_for :right_panel do %>
+  <h3>Explore Trips</h3>
+
+  <% Trip.all.each do |trip| %>
+    <div class="card mb-3 p-3">
+      <h5><%= link_to trip.title, trip_journal_entries_path(trip) %></h5>
+      <p class="small text-muted"><%= trip.destination %></p>
+    </div>
+  <% end %>
+<% end %>

@@ -1,10 +1,21 @@
 class TripsController < ApplicationController
-  before_action :require_login, except: [:index, :show]
-  before_action :load_trip, except: [:index, :new, :create]
+  before_action :require_login, except: [ :index, :show ]
+  before_action :load_trip, except: [ :index, :new, :create ]
+
+  # original index before the IG inspiration
+  # def index
+  #   @user = Current.user
+  #   @trips = Trip.all.order(created_at: :desc)
+  # end
 
   def index
+    # @trips = Current.user.trips   # user’s trips → right side
+    # @feed_entries = JournalEntry.order("RANDOM()").limit(20)  # main feed
     @trips = Trip.all
+    @feed_entries = JournalEntry.order(date: :desc)
   end
+
+
 
   def show
   end
@@ -23,7 +34,7 @@ class TripsController < ApplicationController
   end
 
   def edit
-    return redirect_to @trip, alert: "You cannot edit this trip." unless @trip.user == Current.user
+    redirect_to @trip, alert: "You cannot edit this trip." unless @trip.user == Current.user
   end
 
   def update
@@ -57,7 +68,7 @@ class TripsController < ApplicationController
   private
 
   def trip_params
-    params.expect(trip: [:title, :destination, :start_date, :end_date, :description, media: []])
+    params.expect(trip: [ :title, :destination, :start_date, :end_date, :description, media: [] ])
   end
 
   def load_trip

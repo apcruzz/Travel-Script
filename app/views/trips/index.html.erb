@@ -1,18 +1,41 @@
-<% title "Trips" %>
+<%# <% title "Trips" %>
 
 <%#Display a list of trips%>
-<h3>All Trips</h3>
+<%# <h3>All Trips</h3>
 <% @trips.each do |trip| %>
-  <%= render "trip", trip: trip %>
-  <%# <%= link_to "All Journal Entries", trip_journal_entries_path(trip) %> 
-<% end %>
+<%#   <%= render "trip", trip: trip %>
+<%#   <%# <%= link_to "All Journal Entries", trip_journal_entries_path(trip) %> 
+<%# <% end %>
 
 <%# Display a message if there are no trips %>
-<% if @trips.empty? %>
-  <p>No trips available at the moment. Please check back later!</p>
+<%# % if @trips.empty? %>
+<%#   <p>No trips available at the moment. Please check back later!</p>
 <% end %>
 
 <%# Add a link to create a new trip %>
-<div class="new-trip">
+<%# <div class="new-trip">
   <%= link_to "Create New Trip", new_trip_path, class: "btn btn-primary" %>
-</div>
+<%# </div>
+
+<%# above is the original before ig inspiration %>
+
+
+<h2 class="text-center">Journal Feed</h2>
+
+<% @feed_entries.each do |entry| %>
+  <%= render "journal_entries/journal_entry", journal_entry: entry %>
+<% end %>
+
+
+
+<% content_for :right_panel do %>
+  <h3>Explore Trips</h3>
+
+  <% Trip.all.each do |trip| %>
+    <div class="card mb-3 p-3">
+      <h5><%= link_to trip.title, trip_journal_entries_path(trip) %></h5>
+      <p class="small text-muted"><%= trip.destination %></p>
+      <%# <%= link_to "View Journals", trip_journal_entries_path(trip), class: "btn btn-outline-primary btn-sm w-100" %> 
+    </div>
+  <% end %>
+<% end %>
