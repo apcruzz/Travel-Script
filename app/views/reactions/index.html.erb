@@ -1,0 +1,5 @@
+<h1>All Reactions</h1>
+
+<% @reactions.each do |reaction| %>
+  <p><%= link_to reaction.reaction_type, reaction %></p>
+<% end %>

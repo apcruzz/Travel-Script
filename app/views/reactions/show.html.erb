@@ -1,0 +1,8 @@
+<h1>Reaction</h1>
+
+<p>Type: <%= @reaction.reaction_type %></p>
+<p>User: <%= @reaction.user.name %></p>
+<p>Journal Entry: <%= link_to @reaction.journal_entry.title, trip_journal_entry_path(@reaction.journal_entry.trip, @reaction.journal_entry) %></p>
+
+<%= link_to "Edit", edit_reaction_path(@reaction) %> |
+<%= link_to "Back", reactions_path %>

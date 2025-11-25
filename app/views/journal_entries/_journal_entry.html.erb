@@ -1,17 +1,17 @@
 <% raise "Journal Entry is nil:" if journal_entry.nil? %>
 
 <div class="journal-entry">
-  <!-- Title and not clickable for not JE owners-->
-  <h4> 
+
+  <!-- Title (clickable only by the owner) -->
+  <h4>
     <% if journal_entry.user == Current.user %>
       <%= link_to journal_entry.title,
           trip_journal_entry_path(journal_entry.trip, journal_entry),
           class: "entry-link" %>
     <% else %>
-      <%= journal_entry.title %>   <!-- Non-clickable for other users -->
+      <%= journal_entry.title %>
     <% end %>
   </h4>
-
 
   <!-- Content -->
   <p><%= journal_entry.content %></p>
@@ -25,7 +25,7 @@
     </div>
   <% end %>
 
-  <!-- Date info -->
+  <!-- Dates -->
   <p class="journal-entry-date">
     <em>Went at <%= journal_entry.date.strftime("%B %d, %Y") %></em>
   </p>
@@ -35,30 +35,50 @@
     <%= journal_entry.created_at.strftime("%B %d, %Y") %>
   </p>
 
+  <!-- REACTIONS -->
+  <div class="reaction-bar">
 
-  <div class="d-flex align-items-center gap-2 mb-2">
+    <% user_reaction = journal_entry.reactions.find_by(user: Current.user) %>
 
-    <% if journal_entry.reactions.exists?(user: Current.user) %>
-      <!-- Already reacted -->
+    <div class="reaction-options">
+      <% Reaction::REACTION_TYPES.each do |emoji| %>
+
+        <% method_type = user_reaction.present? ? :patch : :post %>
+
+        <%= button_to trip_journal_entry_react_path(journal_entry.trip, journal_entry),
+            method: method_type,
+            params: { reaction_type: emoji },
+            class: "reaction-emoji-btn #{'active-reaction' if user_reaction&.reaction_type == emoji}" do %>
+          <%= emoji %>
+        <% end %>
+
+      <% end %>
+    </div>
+
+    <% if user_reaction.present? %>
       <%= button_to trip_journal_entry_unreact_path(journal_entry.trip, journal_entry),
           method: :delete,
-          class: "btn btn-link p-0 text-danger fs-4" do %>
-        ❤️
-      <% end %>
-    <% else %>
-      <!-- Not reacted yet -->
-      <%= button_to trip_journal_entry_react_path(journal_entry.trip, journal_entry),
-          method: :post,
-          class: "btn btn-link p-0 fs-4" do %>
-        🤍
+          class: "reaction-remove-btn" do %>
+        ✕
       <% end %>
     <% end %>
 
-    <span class="text-muted">
-      <%= pluralize(journal_entry.reactions.count, "reaction") %>
-    </span>
-  </div>
+    <div class="reaction-count">
+      <% total = journal_entry.reactions.count %>
 
+      <% if user_reaction.present? %>
+        <% others = total - 1 %>
+        <% if others > 0 %>
+          You + <%= others %>
+        <% else %>
+          You
+        <% end %>
+      <% else %>
+        <%= total %>
+      <% end %>
+    </div>
+
+  </div>
 
   <hr>
 </div>

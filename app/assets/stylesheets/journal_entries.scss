@@ -74,4 +74,61 @@
 .delete-entry-btn .btn {
   width: 100%;          /* Button fills the fixed container, NOT full page */
 }
+// REACTION STYLING
+/* Reaction bar layout */
+.reaction-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 8px;
+}
 
+/* Emoji container */
+.reaction-options {
+  display: flex;
+  gap: 4px; /* spacing between emojis */
+}
+
+/* Remove default spacing from rails <form> wrappers */
+.reaction-options form {
+  margin: 0;
+  padding: 0;
+}
+
+/* Emoji reaction buttons (NO BOXES) */
+.reaction-emoji-btn {
+  all: unset;        /* remove all browser + bootstrap styles */
+  cursor: pointer;
+  font-size: 1.4rem;
+  line-height: 1;
+}
+
+.reaction-emoji-btn:hover {
+  transform: scale(1.15);
+  transition: 0.1s ease;
+}
+
+/* Highlight when user reacted */
+.active-reaction {
+  filter: drop-shadow(0 0 3px rgba(0, 0, 0, 0.25));
+}
+
+/* Remove reaction “X” button — no box */
+.reaction-remove-btn {
+  all: unset;
+  cursor: pointer;
+  color: #c00;
+  font-size: 1rem;
+  margin-left: 6px;
+}
+
+.reaction-remove-btn:hover {
+  color: #900;
+}
+
+/* Reaction count */
+.reaction-count {
+  font-size: 0.85rem;
+  color: #777;
+  margin-left: 6px;
+}

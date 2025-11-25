@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   resources :trips do
     resources :journal_entries do
       post "react", to: "reactions#create"
+      patch "react", to: "reactions#update"  # change reaction type
       delete "unreact", to: "reactions#destroy"
     end
   end
