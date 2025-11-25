@@ -25,19 +25,28 @@ class JournalEntriesController < ApplicationController
   end
 
   def new
-    @journal_entry = @trip.journal_entries.new
+    if params[:from_trips]
+      @trips = Current.user.trips      # show dropdown
+      @journal_entry = JournalEntry.new
+    else
+      @journal_entry = @trip.journal_entries.new
+    end
   end
 
   def create
-    @journal_entry = @trip.journal_entries.new(journal_entry_params)
+    @journal_entry = JournalEntry.new(journal_entry_params)  # <-- do NOT use @trip.journal_entries.new
     @journal_entry.user = Current.user
 
+    # The dropdown decides which trip it belongs to
+    @journal_entry.trip_id ||= @trip.id
+
     if @journal_entry.save
-      redirect_to trip_journal_entries_path(@trip), notice: "Journal entry created successfully."
+      redirect_to trip_journal_entries_path(@journal_entry.trip), notice: "Journal entry created!"
     else
       render :new, status: :unprocessable_entity
     end
   end
+
 
   def edit
     redirect_to trip_journal_entry_path(@trip, @journal_entry),
@@ -86,7 +95,11 @@ class JournalEntriesController < ApplicationController
     @journal_entry = @trip.journal_entries.find(params[:id])
   end
 
+  # def journal_entry_params
+  #   params.require(:journal_entry).permit(:title, :content, :date, :image_url, :trip_id, media: [])
+  # end
+
   def journal_entry_params
-    params.require(:journal_entry).permit(:title, :content, :date, :image_url, media: [])
+    params.expect(journal_entry: [ :title, :content, :date, :image_url, :trip_id, media: [] ])
   end
 end

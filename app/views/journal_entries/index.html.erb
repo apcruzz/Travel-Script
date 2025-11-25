@@ -33,6 +33,9 @@
     <div class="card mb-3 p-3">
       <h5><%= link_to trip.title, trip_journal_entries_path(trip) %></h5>
       <p class="small text-muted"><%= trip.destination %></p>
+        ✈️ Posted by 
+        <%= link_to trip.user.name, user_path(trip.user), class: "fw-semibold" %>
+      </p>
     </div>
   <% end %>
 <% end %>

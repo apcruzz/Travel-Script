@@ -12,7 +12,7 @@ class TripsController < ApplicationController
     # @trips = Current.user.trips   # user’s trips → right side
     # @feed_entries = JournalEntry.order("RANDOM()").limit(20)  # main feed
     @trips = Trip.all
-    @feed_entries = JournalEntry.order(date: :desc)
+    @feed_entries = JournalEntry.all.order(date: :desc)
   end
 
 

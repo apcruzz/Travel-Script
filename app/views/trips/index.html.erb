@@ -19,15 +19,23 @@
 
 <%# above is the original before ig inspiration %>
 
-
 <h2 class="text-center">Journal Feed</h2>
 
+<!-- Create New Journal Entry Button -->
+<div class="text-center mb-4">
+  <%= link_to "Create Journal Entry",
+      new_trip_journal_entry_path(Current.user.trips.first, from_trips: true),
+      class: "btn btn-primary"
+  %>
+</div>
+
+<!-- Main Feed -->
 <% @feed_entries.each do |entry| %>
   <%= render "journal_entries/journal_entry", journal_entry: entry %>
 <% end %>
 
 
-
+<!-- RIGHT PANEL — Trips List -->
 <% content_for :right_panel do %>
   <h3>Explore Trips</h3>
 
@@ -35,7 +43,12 @@
     <div class="card mb-3 p-3">
       <h5><%= link_to trip.title, trip_journal_entries_path(trip) %></h5>
       <p class="small text-muted"><%= trip.destination %></p>
+      <p class="text-muted small">
+        ✈️ Created by 
+        <%= link_to trip.user.name, user_path(trip.user), class: "fw-semibold" %>
+      </p>
       <%# <%= link_to "View Journals", trip_journal_entries_path(trip), class: "btn btn-outline-primary btn-sm w-100" %> 
     </div>
   <% end %>
 <% end %>
+
