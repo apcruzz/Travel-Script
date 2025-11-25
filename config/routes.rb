@@ -3,7 +3,10 @@ Rails.application.routes.draw do
   resources :users, except: [ :new ]
   resources :passwords, param: :token
   resources :trips do
-    resources :journal_entries
+    resources :journal_entries do
+      post "react", to: "reactions#create"
+      delete "unreact", to: "reactions#destroy"
+    end
   end
   # get "sites/index" why do we have to delete? this line?
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

@@ -35,5 +35,30 @@
     <%= journal_entry.created_at.strftime("%B %d, %Y") %>
   </p>
 
+
+  <div class="d-flex align-items-center gap-2 mb-2">
+
+    <% if journal_entry.reactions.exists?(user: Current.user) %>
+      <!-- Already reacted -->
+      <%= button_to trip_journal_entry_unreact_path(journal_entry.trip, journal_entry),
+          method: :delete,
+          class: "btn btn-link p-0 text-danger fs-4" do %>
+        ❤️
+      <% end %>
+    <% else %>
+      <!-- Not reacted yet -->
+      <%= button_to trip_journal_entry_react_path(journal_entry.trip, journal_entry),
+          method: :post,
+          class: "btn btn-link p-0 fs-4" do %>
+        🤍
+      <% end %>
+    <% end %>
+
+    <span class="text-muted">
+      <%= pluralize(journal_entry.reactions.count, "reaction") %>
+    </span>
+  </div>
+
+
   <hr>
 </div>
