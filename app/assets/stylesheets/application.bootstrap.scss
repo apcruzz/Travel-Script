@@ -41,6 +41,10 @@ body {
   background: #ffffff;
   border-left: 1px solid #eee;
   min-height: 100vh;
+  position: sticky;
+  top: 0;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 /* Keep card widths clean */

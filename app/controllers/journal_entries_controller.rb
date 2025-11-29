@@ -25,11 +25,11 @@ class JournalEntriesController < ApplicationController
   end
 
   def new
-    if params[:from_trips]
-      @trips = Current.user.trips      # show dropdown
-      @journal_entry = JournalEntry.new
-    else
+    if @trip.present? && !params[:from_trips]
       @journal_entry = @trip.journal_entries.new
+    else
+      @trips = Trip.order(:title)
+      @journal_entry = JournalEntry.new
     end
   end
 
@@ -38,11 +38,12 @@ class JournalEntriesController < ApplicationController
     @journal_entry.user = Current.user
 
     # The dropdown decides which trip it belongs to
-    @journal_entry.trip_id ||= @trip.id
+    @journal_entry.trip_id ||= @trip&.id
 
     if @journal_entry.save
       redirect_to trip_journal_entries_path(@journal_entry.trip), notice: "Journal entry created!"
     else
+      @trips = Trip.order(:title) if @trip.blank? || params[:from_trips].present?
       render :new, status: :unprocessable_entity
     end
   end
@@ -87,9 +88,14 @@ class JournalEntriesController < ApplicationController
 
   private
 
+  # def set_trip
+  #   @trip = Trip.find(params[:trip_id])
+  # end
+  #
   def set_trip
-    @trip = Trip.find(params[:trip_id])
+    @trip = Trip.find_by(id: params[:trip_id])
   end
+
 
   def set_journal_entry
     @journal_entry = @trip.journal_entries.find(params[:id])

@@ -1,16 +1,17 @@
-<%= bootstrap_form_for [@trip, @journal_entry] do |f| %>
+<%= bootstrap_form_for(@trip.present? ? [ @trip, @journal_entry ] : @journal_entry) do |f| %>
 
-  <%# Show trip dropdown ONLY when creating a new journal entry %>
-  <% unless @journal_entry.persisted? %>
+  <% if defined?(@trips) && @trips.present? %>
     <div class="mb-3">
       <%= f.label :trip_id, "Select Trip" %>
       <%= f.collection_select :trip_id,
-            Current.user.trips,
+            @trips,
             :id,
             :title,
             { prompt: "Choose a trip" },
             { class: "form-select" } %>
     </div>
+  <% elsif @trip.present? %>
+    <%= f.hidden_field :trip_id, value: @trip.id %>
   <% end %>
 
   <%= f.text_field :title %>

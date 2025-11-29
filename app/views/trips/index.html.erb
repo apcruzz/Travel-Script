@@ -19,14 +19,25 @@
 
 <%# above is the original before ig inspiration %>
 
-<h2 class="text-center">Journal Feed</h2>
+<h2 class="text-start">Journal Feed</h2>
 
 <!-- Create New Journal Entry Button -->
-<div class="text-center mb-4">
-  <%= link_to "Create Journal Entry",
-      new_trip_journal_entry_path(Current.user.trips.first, from_trips: true),
-      class: "btn btn-primary"
-  %>
+<div class="text-left mb-4">
+  <% if authenticated? %>
+    <div class="d-inline-flex gap-2 flex-wrap justify-content-center">
+      <%= link_to "Create Journal Entry",
+          new_journal_entry_path(from_trips: true),
+          class: "btn btn-primary" %>
+      <%= link_to "Create New Trip",
+          new_trip_path,
+          class: "btn btn-outline-secondary" %>
+    </div>
+  <% else %>
+    <p class="text-muted small mb-0">
+      Log in to start sharing your travel stories.
+    </p>
+    <%= link_to "Login", login_path, class: "btn btn-outline-primary mt-2" %>
+  <% end %>
 </div>
 
 <!-- Main Feed -->
@@ -47,8 +58,14 @@
         ✈️ Created by 
         <%= link_to trip.user.name, user_path(trip.user), class: "fw-semibold" %>
       </p>
-      <%# <%= link_to "View Journals", trip_journal_entries_path(trip), class: "btn btn-outline-primary btn-sm w-100" %> 
+      <div class="d-flex gap-2">
+        <%= link_to "View Journals", trip_journal_entries_path(trip),
+            class: "btn btn-primary btn-sm flex-fill" %>
+        <% if authenticated? %>
+          <%= link_to "Write Entry", new_trip_journal_entry_path(trip),
+              class: "btn btn-primary btn-sm flex-fill" %>
+        <% end %>
+      </div>
     </div>
   <% end %>
 <% end %>
-

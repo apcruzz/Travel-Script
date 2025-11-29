@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       delete "unreact", to: "reactions#destroy"
     end
   end
+  resources :journal_entries, only: [ :new, :create ]
   # get "sites/index" why do we have to delete? this line?
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

@@ -1,5 +1,8 @@
 class ReactionsController < ApplicationController
-  before_action :set_reaction, only: [ :show, :edit, :update, :destroy ]
+  before_action :require_login, except: [ :index, :show ]
+  before_action :set_reaction, only: [ :show, :edit ]
+  before_action :set_context_from_nested_routes, only: [ :create, :update, :destroy ]
+  before_action :set_nested_reaction, only: [ :update, :destroy ]
 
   # def create
   #   @journal_entry.reactions.create(user: Current.user)
@@ -35,11 +38,14 @@ class ReactionsController < ApplicationController
 
   # POST /reactions
   def create
-    @reaction = Reaction.new(reaction_params)
+    @reaction = @journal_entry.reactions.find_or_initialize_by(user: Current.user)
+    @reaction.reaction_type = params[:reaction_type]
+
     if @reaction.save
-      redirect_to @reaction, notice: "Reaction created."
+      redirect_back fallback_location: trips_path
     else
-      render :new, status: :unprocessable_entity
+      redirect_back fallback_location: trips_path,
+        alert: @reaction.errors.full_messages.to_sentence.presence || "Unable to react."
     end
   end
 
@@ -49,17 +55,21 @@ class ReactionsController < ApplicationController
 
   # PATCH/PUT /reactions/:id
   def update
-    if @reaction.update(reaction_params)
-      redirect_to @reaction, notice: "Reaction updated."
+    if @reaction&.update(reaction_type: params[:reaction_type])
+      redirect_back fallback_location: trips_path
     else
-      render :edit, status: :unprocessable_entity
+      redirect_back fallback_location: trips_path,
+        alert: @reaction&.errors&.full_messages&.to_sentence || "Unable to update reaction."
     end
   end
 
   # DELETE /reactions/:id
   def destroy
-    @reaction.destroy
-    redirect_to reactions_path, notice: "Reaction removed."
+    if @reaction&.destroy
+      redirect_back fallback_location: trips_path
+    else
+      redirect_back fallback_location: trips_path, alert: "Reaction could not be removed."
+    end
   end
 
   private
@@ -68,7 +78,20 @@ class ReactionsController < ApplicationController
     @reaction = Reaction.find(params[:id])
   end
 
+  def set_context_from_nested_routes
+    @trip = Trip.find(params[:trip_id])
+    @journal_entry = @trip.journal_entries.find(params[:journal_entry_id])
+  end
+
+  def set_nested_reaction
+    @reaction = @journal_entry.reactions.find_by(user: Current.user)
+  end
+
+  # def reaction_params
+  #   params.require(:reaction).permit(:user_id, :journal_entry_id, :reaction_type)
+  # end
+
   def reaction_params
-    params.require(:reaction).permit(:user_id, :journal_entry_id, :reaction_type)
+    params.expect(reaction: [ :user_id, :journal_entry_id, :reaction_type ])
   end
 end
