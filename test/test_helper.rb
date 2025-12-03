@@ -10,7 +10,7 @@ require "capybara/rails"
 
 require "minitest/reporters"
 
-Dir[File.join(__dir__, "helpers", "*.rb")].each { |file| require file}
+Dir[File.join(__dir__, "helpers", "*.rb")].each { |file| require file }
 
 Minitest::Reporters.use!(Minitest::Reporters::ProgressReporter.new(color: true), ENV, Minitest.backtrace_filter)
 
@@ -26,7 +26,7 @@ module ActiveSupport
   end
 end
 
-class ActionDispatch::InterhrationTest
+class ActionDispatch::IntegrationTest
   include Capybara::DSL
   include TextHelpers
 end

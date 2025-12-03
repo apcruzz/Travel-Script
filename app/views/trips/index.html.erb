@@ -60,10 +60,10 @@
       </p>
       <div class="d-flex gap-2">
         <%= link_to "View Journals", trip_journal_entries_path(trip),
-            class: "btn btn-primary btn-sm flex-fill" %>
+            class: "btn btn-outline-secondary btn-sm flex-fill" %>
         <% if authenticated? %>
           <%= link_to "Write Entry", new_trip_journal_entry_path(trip),
-              class: "btn btn-primary btn-sm flex-fill" %>
+              class: "btn btn-outline-secondary btn-sm flex-fill" %>
         <% end %>
       </div>
     </div>

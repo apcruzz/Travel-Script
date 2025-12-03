@@ -118,6 +118,39 @@ h2, h3, h4 {
   }
 }
 
+/* Compact cards inside the Explore Trips panel */
+.right-panel .card {
+  border-radius: 12px;
+  padding: 14px;
+  margin-bottom: 16px;
+  box-shadow: 0 6px 20px rgba(15, 23, 42, 0.08);
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 26px rgba(15, 23, 42, 0.12);
+  }
+
+  h5 {
+    font-size: 1rem;
+    margin-bottom: 0.35rem;
+    color: #0f172a;
+  }
+
+  p {
+    font-size: 0.85rem;
+    margin-bottom: 0.4rem;
+    color: #475569;
+  }
+
+  .btn {
+    border-radius: 999px;
+    font-size: 0.8rem;
+    padding: 6px 12px;
+  }
+}
+
 /* ===============================
    FORMS
    =============================== */
