@@ -73,8 +73,12 @@ class TripsTest < ActionDispatch::IntegrationTest
     assert_text trip.title
 
     assert_difference "Trip.count", -1 do
-      accept_confirm do
-        click_link "Delete Trip"
+      if Capybara.current_driver == :rack_test
+        page.driver.submit :delete, trip_path(trip), {}
+      else
+        accept_confirm do
+          click_link "Delete Trip"
+        end
       end
     end
 
