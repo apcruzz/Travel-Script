@@ -34,6 +34,23 @@ class TripsTest < ActionDispatch::IntegrationTest
     assert_text trip_title
   end
 
+  test "trip creation shows validation errors" do
+    login_a_user
+    visit new_trip_path
+
+    assert_no_difference "Trip.count" do
+      fill_in "Title", with: ""
+      fill_in "Destination", with: "Lisbon"
+      fill_in "Start date", with: Date.current.to_s
+      fill_in "End date", with: 1.week.from_now.to_date.to_s
+      fill_in "Description", with: "Plenty of details here."
+
+      click_button "Create Trip"
+    end
+
+    assert_text "can't be blank"
+  end
+
   test "user can view and update their trip" do
     user = login_a_user
     trip = FactoryBot.create :trip, user: user, title: "Spring Retreat"
@@ -85,4 +102,6 @@ class TripsTest < ActionDispatch::IntegrationTest
     assert_text "Trip was successfully deleted."
     refute_text trip.title
   end
+
+  # ask brother slade is there is a better/easier way to do this
 end
