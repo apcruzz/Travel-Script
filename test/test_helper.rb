@@ -29,4 +29,5 @@ end
 class ActionDispatch::IntegrationTest
   include Capybara::DSL
   include TextHelpers
+  include AuthenticationHelpers
 end
