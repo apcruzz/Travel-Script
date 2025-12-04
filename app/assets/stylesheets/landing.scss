@@ -1,29 +1,44 @@
-// body {
-//   background: linear-gradient(135deg, #dff4ff, #f8ffff);
-//   min-height: 100vh;
-//   font-family: "Inter", sans-serif;
-// }
+body.layout-default {
+  overflow: hidden; /* prevent scrolling on landing/auth screens */
+}
 
-// .card {
-//   background: white;
-//   border-radius: 12px;
-//   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-// }
+body.layout-default .main-feed {
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f8fafc;
+}
 
-// .btn-primary {
-//   background-color: #003e5c;
-//   border: none;
-// }
+.landing-page {
+  background: transparent;
+  width: 100%;
+  font-family: "Inter", sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-// .btn-success {
-//   background-color: #007f73;
-//   border: none;
-// }
+  .card {
+    background: white;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+  }
 
-// .btn:hover {
-//   opacity: 0.9;
-// }
+  .btn-primary {
+    background-color: #003e5c;
+    border: none;
+  }
 
+  .btn-success {
+    background-color: #007f73;
+    border: none;
+  }
+
+  .btn:hover {
+    opacity: 0.9;
+  }
+}
 
 
 .login-card {
