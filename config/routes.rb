@@ -7,6 +7,7 @@ Rails.application.routes.draw do
       post "react", to: "reactions#create"
       patch "react", to: "reactions#update"  # change reaction type
       delete "unreact", to: "reactions#destroy"
+      resources :comments, only: [ :create, :destroy ]
     end
   end
   resources :journal_entries, only: [ :new, :create ]

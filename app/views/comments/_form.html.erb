@@ -1,0 +1,10 @@
+<%= form_with model: [ trip, journal_entry, comment ], local: true do |f| %>
+  <div class="mb-3">
+    <%= f.label :content, "Add a comment", class: "form-label" %>
+    <%= f.text_area :content,
+        rows: 3,
+        class: "form-control",
+        placeholder: "Share your thoughts about this entry..." %>
+  </div>
+  <%= f.submit "Post Comment", class: "btn btn-primary" %>
+<% end %>

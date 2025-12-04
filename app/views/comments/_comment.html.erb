@@ -1,0 +1,15 @@
+<div class="journal-comment border rounded p-3 mb-3">
+  <div class="d-flex justify-content-between align-items-center mb-2">
+    <div>
+      <strong><%= comment.user.name %></strong>
+      <span class="text-muted small ms-2"><%= time_ago_in_words(comment.created_at) %> ago</span>
+    </div>
+    <% if comment.user == Current.user %>
+      <%= link_to "Delete",
+          trip_journal_entry_comment_path(comment.journal_entry.trip, comment.journal_entry, comment),
+          data: { turbo_method: :delete, turbo_confirm: "Delete this comment?" },
+          class: "text-danger small" %>
+    <% end %>
+  </div>
+  <p class="mb-0"><%= simple_format(comment.content) %></p>
+</div>

@@ -1,25 +1,53 @@
-<% title "JOURNAL ENTRY" %>
+<% title @journal_entry.title %>
 
-<%= render "form", journal_entry: @journal_entry, trip: @trip %>
+<div class="journal-entry-show card p-4 mb-4">
+  <h2><%= @journal_entry.title %></h2>
+  <p class="text-muted mb-3">
+    Posted by <strong><%= @journal_entry.user.name %></strong>
+    on <%= @journal_entry.created_at.strftime("%B %d, %Y") %>
+  </p>
 
-<% if @journal_entry.user == Current.user %>
-  <div class="back-to-journal-entries">
-    <%= link_to "Back to All Trips", trips_path, class: "btn btn-secondary" %>
+  <p class="mb-4"><%= simple_format(@journal_entry.content) %></p>
+
+  <% if @journal_entry.media.attached? %>
+    <div class="row g-3 mb-4">
+      <% @journal_entry.media.each do |file| %>
+        <div class="col-md-4">
+          <%= image_tag file, class: "img-fluid rounded" %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="d-flex gap-2 flex-wrap">
+    <%= link_to "Back to Entries", trip_journal_entries_path(@trip), class: "btn btn-outline-secondary" %>
+    <% if @journal_entry.user == Current.user %>
+      <%= link_to "Edit Journal Entry", edit_trip_journal_entry_path(@trip, @journal_entry), class: "btn btn-primary" %>
+      <%= link_to "Delete Journal Entry",
+          trip_journal_entry_path(@trip, @journal_entry),
+          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+          class: "btn btn-danger" %>
+    <% end %>
   </div>
+</div>
 
+<section class="journal-entry-comments card p-4">
+  <h3 class="mb-3">Comments (<%= @comments.size %>)</h3>
 
-  <%# Add a link to edit the journal entry %>
-  <%# <div class="edit-journal-entry">
-    <%= link_to "Edit Journal Entry", edit_trip_journal_entry_path(@trip, @journal_entry), class: "btn btn-secondary" %>
-  <%# </div>  %>
+  <% if @comments.any? %>
+    <%= render @comments %>
+  <% else %>
+    <p class="text-muted">No comments yet. Be the first to share your thoughts!</p>
+  <% end %>
 
-  <%# Add a link to delete the journal entry %>
-  <div class="delete-entry-btn">
-    <%= link_to "Delete Journal Entry",
-        trip_journal_entry_path(@trip, @journal_entry),
-        data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
-        class: "btn btn-danger w-100 mt-3" %>
-  </div>
-
-<% end %>
-
+  <% if authenticated? %>
+    <div class="mt-4">
+      <%= render "comments/form",
+          trip: @trip,
+          journal_entry: @journal_entry,
+          comment: @comment %>
+    </div>
+  <% else %>
+    <p class="text-muted mt-4">Log in to join the conversation.</p>
+  <% end %>
+</section>

@@ -1,4 +1,5 @@
 class JournalEntriesController < ApplicationController
+  allow_unauthenticated_access only: %i[index show]
   before_action :require_login, except: [ :index, :show ]
   before_action :set_trip
   before_action :set_journal_entry, only: %i[show edit update destroy]
@@ -13,7 +14,7 @@ class JournalEntriesController < ApplicationController
 
   def index
     @journal_entries = @trip.journal_entries.order(date: :desc)
-    @trips = Current.user.trips
+    @trips = Current.user&.trips || Trip.none
   end
 
   # def index
@@ -21,7 +22,8 @@ class JournalEntriesController < ApplicationController
   # end
 
   def show
-    # Anyone can view
+    @comments = @journal_entry.comments.includes(:user).order(created_at: :asc)
+    @comment = Comment.new
   end
 
   def new

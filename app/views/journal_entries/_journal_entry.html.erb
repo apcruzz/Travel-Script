@@ -63,7 +63,7 @@
       <% end %>
     <% end %>
 
-    <div class="reaction-count">
+  <div class="reaction-count">
       <% total = journal_entry.reactions.count %>
 
       <% if user_reaction.present? %>
@@ -78,6 +78,29 @@
       <% end %>
     </div>
 
+  </div>
+
+  <% comments = journal_entry.comments.includes(:user).order(created_at: :asc) %>
+
+  <div class="journal-entry-comments mt-4">
+    <h6 class="text-muted mb-3">Comments (<%= comments.size %>)</h6>
+
+    <% if comments.any? %>
+      <%= render comments %>
+    <% else %>
+      <p class="text-muted small">No comments yet. Be the first to share your thoughts!</p>
+    <% end %>
+
+    <% if authenticated? %>
+      <div class="mt-3">
+        <%= render "comments/form",
+            trip: journal_entry.trip,
+            journal_entry:,
+            comment: Comment.new %>
+      </div>
+    <% else %>
+      <p class="text-muted small mt-3">Log in to post a comment.</p>
+    <% end %>
   </div>
 
   <hr>
