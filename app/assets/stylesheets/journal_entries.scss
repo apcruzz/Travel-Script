@@ -132,3 +132,96 @@
   color: #777;
   margin-left: 6px;
 }
+
+.journal-entry-images {
+  position: relative;
+}
+
+.image-carousel {
+  position: relative;
+  max-width: 1080px;
+  margin: 0 auto 1rem auto;
+}
+
+.image-track {
+  overflow: hidden;
+  width: 100%;
+}
+
+.carousel-slide {
+  display: none;
+}
+
+.carousel-slide.is-active {
+  display: block;
+}
+
+.carousel-image,
+.carousel-slide video {
+  width: 100%;
+  max-height: 1350px;
+  object-fit: cover;
+  border-radius: 12px;
+  display: block;
+}
+
+.nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(0, 0, 0, 0.35);
+  color: #fff;
+  font-size: 1.2rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.nav-btn:hover {
+  background: rgba(0, 0, 0, 0.55);
+}
+
+.nav-btn-prev {
+  left: 16px;
+}
+
+.nav-btn-next {
+  right: 16px;
+}
+
+.nav-btn.is-hidden {
+  display: none;
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 6px;
+}
+
+.carousel-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  padding: 0;
+}
+
+.carousel-dot.is-active {
+  background: #fff;
+}
+
+.carousel-dot.is-hidden {
+  display: none;
+}

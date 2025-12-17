@@ -18,10 +18,41 @@
 
   <!-- Images -->
   <% if journal_entry.media.attached? %>
-    <div class="journal-entry-images">
-      <% journal_entry.media.each do |file| %>
-        <%= image_tag file, class: "img-fluid rounded mb-2" %>
-      <% end %>
+    <div class="image-carousel journal-entry-images" data-controller="carousel">
+      <button type="button"
+          class="nav-btn nav-btn-prev"
+          data-carousel-target="nav"
+          data-action="carousel#prev">‹</button>
+      <div class="image-track" data-carousel-target="track">
+        <% journal_entry.media.each do |file| %>
+          <div class="carousel-slide" data-carousel-target="slide">
+            <% if file.variable? %>
+              <% begin %>
+                <%= image_tag file.variant(resize_to_fill: [ 600, 600 ]).processed, class: "carousel-image" %>
+              <% rescue => e %>
+                <%= image_tag file, class: "carousel-image", alt: file.filename.to_s %>
+              <% end %>
+            <% elsif file.content_type.start_with?("video/") %>
+              <%= video_tag file, controls: true, class: "carousel-image" %>
+            <% else %>
+              <%= link_to file.filename.to_s, url_for(file), class: "carousel-attachment-link" %>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <button type="button"
+          class="nav-btn nav-btn-next"
+          data-carousel-target="nav"
+          data-action="carousel#next">›</button>
+      <div class="carousel-dots">
+        <% journal_entry.media.each_with_index do |file, index| %>
+          <button type="button"
+              class="carousel-dot"
+              data-carousel-target="dot"
+              data-carousel-index="<%= index %>"
+              data-action="carousel#jump"></button>
+        <% end %>
+      </div>
     </div>
   <% end %>
 

@@ -20,6 +20,6 @@ class SessionsController < ApplicationController
 
   def destroy
     terminate_session
-    redirect_to root_path, notice: "Logged out successfully."
+    redirect_to root_path # notice: "Logged out successfully."
   end
 end
