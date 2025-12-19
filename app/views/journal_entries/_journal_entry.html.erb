@@ -28,7 +28,7 @@
           <div class="carousel-slide" data-carousel-target="slide">
             <% if file.variable? %>
               <% begin %>
-                <%= image_tag file.variant(resize_to_fill: [ 600, 600 ]).processed, class: "carousel-image" %>
+                <%= image_tag file.variant(resize_to_fill: [ 1080, 1080 ]).processed, class: "carousel-image" %>
               <% rescue => e %>
                 <%= image_tag file, class: "carousel-image", alt: file.filename.to_s %>
               <% end %>
@@ -65,73 +65,100 @@
     Posted by <%= journal_entry.user.name %> on
     <%= journal_entry.created_at.strftime("%B %d, %Y") %>
   </p>
-
-  <!-- REACTIONS -->
-  <div class="reaction-bar">
-
-    <% user_reaction = journal_entry.reactions.find_by(user: Current.user) %>
-
-    <div class="reaction-options">
-      <% Reaction::REACTION_TYPES.each do |emoji| %>
-
-        <% method_type = user_reaction.present? ? :patch : :post %>
-
-        <%= button_to trip_journal_entry_react_path(journal_entry.trip, journal_entry),
-            method: method_type,
-            params: { reaction_type: emoji },
-            class: "reaction-emoji-btn #{'active-reaction' if user_reaction&.reaction_type == emoji}" do %>
-          <%= emoji %>
-        <% end %>
-
-      <% end %>
-    </div>
-
-    <% if user_reaction.present? %>
-      <%= button_to trip_journal_entry_unreact_path(journal_entry.trip, journal_entry),
-          method: :delete,
-          class: "reaction-remove-btn" do %>
-        ✕
-      <% end %>
-    <% end %>
-
-  <div class="reaction-count">
-      <% total = journal_entry.reactions.count %>
-
-      <% if user_reaction.present? %>
-        <% others = total - 1 %>
-        <% if others > 0 %>
-          You + <%= others %>
-        <% else %>
-          You
-        <% end %>
-      <% else %>
-        <%= total %>
-      <% end %>
-    </div>
-
-  </div>
-
+<%# LEARN MORE FROM HERE TO THE BOTTOM and THE JAVASCRIPTS too%>
+  <% user_reaction = journal_entry.reactions.find_by(user: Current.user) %>
   <% comments = journal_entry.comments.includes(:user).order(created_at: :asc) %>
 
-  <div class="journal-entry-comments mt-4">
-    <h6 class="text-muted mb-3">Comments (<%= comments.size %>)</h6>
-
-    <% if comments.any? %>
-      <%= render comments %>
-    <% else %>
-      <p class="text-muted small">No comments yet. Be the first to share your thoughts!</p>
-    <% end %>
-
-    <% if authenticated? %>
-      <div class="mt-3">
-        <%= render "comments/form",
-            trip: journal_entry.trip,
-            journal_entry:,
-            comment: Comment.new %>
+  <div class="post-actions" data-controller="post-actions">
+    <div class="reaction-summary">
+      <% total = journal_entry.reactions.count %>
+      <div class="reaction-count-display">
+        <span class="reaction-count-icon">👍</span>
+        <% if user_reaction.present? %>
+          <% others = total - 1 %>
+          <% if others.positive? %>
+            You + <%= others %>
+          <% else %>
+            You
+          <% end %>
+        <% else %>
+          <%= total %>
+        <% end %>
       </div>
-    <% else %>
-      <p class="text-muted small mt-3">Log in to post a comment.</p>
-    <% end %>
+      <button
+          type="button"
+          class="comment-count-btn"
+          data-post-actions-target="commentButton"
+          data-action="post-actions#toggleComments">
+        <%= pluralize(comments.size, "comment") %>
+      </button>
+    </div>
+
+    <div class="action-buttons">
+      <div class="like-action"
+          data-action="mouseenter->post-actions#showPicker mouseleave->post-actions#scheduleHide">
+        <% default_reaction = Reaction::REACTION_TYPES.first %>
+        <% if user_reaction.present? %>
+          <%= button_to trip_journal_entry_unreact_path(journal_entry.trip, journal_entry),
+              method: :delete,
+              class: "action-btn like-btn active" do %>
+            <i class="bi bi-hand-thumbs-up-fill"></i>
+            <span>Like</span>
+          <% end %>
+        <% else %>
+          <%= button_to trip_journal_entry_react_path(journal_entry.trip, journal_entry),
+              method: :post,
+              params: { reaction_type: default_reaction },
+              class: "action-btn like-btn" do %>
+            <i class="bi bi-hand-thumbs-up"></i>
+            <span>Like</span>
+          <% end %>
+        <% end %>
+
+        <div class="reaction-picker"
+            data-post-actions-target="picker"
+            data-action="mouseenter->post-actions#cancelHide mouseleave->post-actions#scheduleHide">
+          <% Reaction::REACTION_TYPES.each do |emoji| %>
+            <%= button_to trip_journal_entry_react_path(journal_entry.trip, journal_entry),
+                method: user_reaction.present? ? :patch : :post,
+                params: { reaction_type: emoji },
+                class: "reaction-picker-btn #{'active' if user_reaction&.reaction_type == emoji}" do %>
+              <span><%= emoji %></span>
+            <% end %>
+          <% end %>
+        </div>
+      </div>
+
+      <button
+          type="button"
+          class="action-btn comment-btn"
+          data-post-actions-target="commentButton"
+          data-action="post-actions#toggleComments">
+        <i class="bi bi-chat"></i>
+        <span>Comment</span>
+      </button>
+    </div>
+
+    <div class="comments-wrapper" data-post-actions-target="comments" hidden>
+      <h6 class="text-muted mb-3">Comments (<%= comments.size %>)</h6>
+
+      <% if comments.any? %>
+        <%= render comments %>
+      <% else %>
+        <p class="text-muted small">No comments yet. Be the first to share your thoughts!</p>
+      <% end %>
+
+      <% if authenticated? %>
+        <div class="mt-3">
+          <%= render "comments/form",
+              trip: journal_entry.trip,
+              journal_entry:,
+              comment: Comment.new %>
+        </div>
+      <% else %>
+        <p class="text-muted small mt-3">Log in to post a comment.</p>
+      <% end %>
+    </div>
   </div>
 
   <hr>

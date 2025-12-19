@@ -165,6 +165,126 @@
   display: block;
 }
 
+.post-actions {
+  border-top: 1px solid #e5e7eb;
+  margin-top: 16px;
+  padding-top: 12px;
+}
+
+.reaction-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 8px;
+}
+
+.reaction-count-display {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.reaction-count-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #0f62fe;
+  color: #fff;
+  font-size: 0.85rem;
+}
+
+.comment-count-btn {
+  background: none;
+  border: none;
+  color: #6b7280;
+  cursor: pointer;
+  font-size: 0.85rem;
+}
+
+.comment-count-btn.is-active {
+  color: #111827;
+  font-weight: 600;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-around;
+  border-top: 1px solid #e5e7eb;
+  border-bottom: 1px solid #e5e7eb;
+  padding: 8px 0;
+  margin-bottom: 12px;
+}
+
+.action-btn {
+  background: none;
+  border: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-weight: 600;
+  color: #4b5563;
+  padding: 6px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.action-btn:hover,
+.action-btn.is-active,
+.action-btn.active {
+  background: #f3f4f6;
+}
+
+.like-action {
+  position: relative;
+}
+
+.reaction-picker {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: #fff;
+  border-radius: 999px;
+  padding: 8px 12px;
+  display: flex;
+  gap: 8px;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.15);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+
+.reaction-picker.is-visible {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translate(-50%, -4px);
+}
+
+.reaction-picker form {
+  margin: 0;
+}
+
+.reaction-picker-btn {
+  background: none;
+  border: none;
+  font-size: 1.6rem;
+  cursor: pointer;
+  transition: transform 0.1s ease;
+}
+
+.reaction-picker-btn:hover {
+  transform: translateY(-3px);
+}
+
+.comments-wrapper[hidden] {
+  display: none !important;
+}
 .nav-btn {
   position: absolute;
   top: 50%;
