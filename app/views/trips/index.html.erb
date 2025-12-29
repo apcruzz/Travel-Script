@@ -41,9 +41,11 @@
 </div>
 
 <!-- Main Feed -->
-<% @feed_entries.each do |entry| %>
-  <%= render "journal_entries/journal_entry", journal_entry: entry %>
-<% end %>
+<div class="journal-entry-container">
+  <% @feed_entries.each do |entry| %>
+    <%= render "journal_entries/journal_entry", journal_entry: entry %>
+  <% end %>
+</div>
 
 
 <!-- RIGHT PANEL — Trips List -->

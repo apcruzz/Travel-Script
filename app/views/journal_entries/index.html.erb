@@ -3,9 +3,11 @@
 <% content_for :feed do %>
   <%# Display a list of journal entries %>
   <h3>All <%= @trip.title %> Journal Entries</h3>
-  <% @journal_entries.each do |entry| %>
-    <%= render "journal_entry", journal_entry: entry %>
-  <% end %>   
+  <div class="journal-entry-container">
+    <% @journal_entries.each do |entry| %>
+      <%= render "journal_entry", journal_entry: entry %>
+    <% end %>
+  </div>   
 
 
   <%# Display a message if there are no journal entries %>
