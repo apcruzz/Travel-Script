@@ -25,12 +25,8 @@
 <div class="text-left mb-4">
   <% if authenticated? %>
     <div class="d-inline-flex gap-2 flex-wrap justify-content-center">
-      <%= link_to "Create Journal Entry",
-          new_journal_entry_path(from_trips: true),
-          class: "btn btn-primary" %>
-      <%= link_to "Create New Trip",
-          new_trip_path,
-          class: "btn btn-outline-secondary" %>
+      <%= link_to "Create Journal Entry", new_journal_entry_path(from_trips: true),class: "btn btn-primary" %>
+      <%= link_to "Create New Trip", new_trip_path, class: "btn btn-outline-secondary" %>
     </div>
   <% else %>
     <p class="text-muted small mb-0">

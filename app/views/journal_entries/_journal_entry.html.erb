@@ -73,16 +73,21 @@
     <div class="reaction-summary">
       <% total = journal_entry.reactions.count %>
       <div class="reaction-count-display">
-        <span class="reaction-count-icon">👍</span>
+        <div class="reaction-icons">
+          <% Reaction::REACTION_TYPES.first(3).each do |emoji| %>
+            <% next unless journal_entry.reactions.exists?(reaction_type: emoji) %>
+            <span class="reaction-count-icon"><%= emoji %></span>
+          <% end %>
+        </div>
         <% if user_reaction.present? %>
           <% others = total - 1 %>
           <% if others.positive? %>
-            You + <%= others %>
+            You and <%= pluralize(others, "other") %>
           <% else %>
             You
           <% end %>
         <% else %>
-          <%= total %>
+          <%= pluralize(total, "reaction") %>
         <% end %>
       </div>
       <button

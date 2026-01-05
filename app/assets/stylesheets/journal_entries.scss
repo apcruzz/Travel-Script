@@ -6,6 +6,7 @@
   max-width: 750px;
   margin: 0 auto;
   padding: 16px;
+  margin-top: 40px;
 }
 
 .journal-entry {
@@ -175,7 +176,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 0.9rem;
+  font-size: 0.85rem;
   color: #6b7280;
   margin-bottom: 8px;
 }
@@ -183,19 +184,30 @@
 .reaction-count-display {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
+}
+
+.reaction-icons {
+  display: flex;
 }
 
 .reaction-count-icon {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 24px;
-  height: 24px;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
-  background: #0f62fe;
+  border: 2px solid #fff;
+  background: #1877f2;
   color: #fff;
   font-size: 0.85rem;
+  margin-left: -6px;
+  box-shadow: 0 0 0 1px rgba(15, 23, 42, 0.1);
+
+  &:first-child {
+    margin-left: 0;
+  }
 }
 
 .comment-count-btn {
@@ -216,8 +228,14 @@
   justify-content: space-around;
   border-top: 1px solid #e5e7eb;
   border-bottom: 1px solid #e5e7eb;
-  padding: 8px 0;
-  margin-bottom: 12px;
+  padding: 6px 0;
+  margin-bottom: 8px;
+}
+
+.action-buttons form {
+  margin: 0;
+  padding: 0;
+  display: contents;
 }
 
 .action-btn {
@@ -229,14 +247,14 @@
   font-weight: 600;
   font-size: 0.85rem;
   color: #4b5563;
-  padding: 4px 10px;
-  border-radius: 999px;
+  padding: 2px 6px;
+  border-radius: 6px;
   cursor: pointer;
   transition: background 0.2s ease;
 }
 
 .action-btn i {
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .action-btn:hover,
