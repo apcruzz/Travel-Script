@@ -223,15 +223,20 @@
 .action-btn {
   background: none;
   border: none;
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 6px;
+  gap: 4px;
   font-weight: 600;
+  font-size: 0.85rem;
   color: #4b5563;
-  padding: 6px 12px;
-  border-radius: 8px;
+  padding: 4px 10px;
+  border-radius: 999px;
   cursor: pointer;
   transition: background 0.2s ease;
+}
+
+.action-btn i {
+  font-size: 0.95rem;
 }
 
 .action-btn:hover,
